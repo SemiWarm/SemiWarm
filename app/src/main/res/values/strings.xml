@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">半暖</string>
+    <string name="home_text">主页</string>
+    <string name="sort_text">分类</string>
+    <string name="explore_text">探索</string>
+    <string name="topics_text">专题</string>
+    <string name="mine_text">我的</string>
+    <string name="press_key_back_info">再按一次退出应用</string>
+    <string name="search_view_text">请输入搜索内容</string>
+    <string name="ic_search_desc">搜索图标</string>
+    <string name="cancel">取消</string>
+    <string name="text_sign_in">登 录</string>
+    <string name="hint_account">用户名/手机号</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="text_sign_up">注 册</string>
+    <string name="text_logo_desc">社区化导购商城</string>
+    <string name="text_forget_password">忘记密码？</string>
+    <string name="text_third_login">第三方登录</string>
+    <string name="text_86">+86</string>
+    <string name="text_phone">请输入手机号</string>
+    <string name="text_code">请输入验证码</string>
+    <string name="text_get_code">获取验证码</string>
+    <string name="text_next">下一步</string>
+    <string name="text_hint_username">用户名</string>
+    <string name="hint_confirm_password">请确认密码</string>
+    <string name="hint_search">请输入搜索内容</string>
+    <string name="text_goto_sign_up"><![CDATA[没有账号？去注册>>]]></string>
+    <string name="text_goto_sign_in"><![CDATA[已有账号？去登录>>]]></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_reacquire_code">重新获取验证码</string>
+</resources>

@@ -1,0 +1,149 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="app.semiwarm.cn.fragment.SignUpFragment">
+
+    <!--输入框-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_input_field"
+        android:orientation="vertical">
+
+        <!--账户输入框-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_account"/>
+
+            <EditText
+                android:id="@+id/et_account_name"
+                android:layout_width="222dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:hint="@string/text_hint_username"
+                android:inputType="text"
+                android:textColorHint="@color/grey_400"
+                android:textCursorDrawable="@drawable/bg_cursor"
+                android:textSize="15sp"/>
+
+            <ImageView
+                android:id="@+id/iv_account_name_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_delete"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+        <!--分割线-->
+        <View
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:background="@color/grey_400"/>
+
+        <!--密码输入框-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_password"/>
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="222dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/grey_400"
+                android:textCursorDrawable="@drawable/bg_cursor"
+                android:textSize="15sp"/>
+
+            <ImageView
+                android:id="@+id/iv_password_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_delete"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+        <!--分割线-->
+        <View
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:background="@color/grey_400"/>
+
+        <!--确认密码输入框-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_password"/>
+
+            <EditText
+                android:id="@+id/et_confirm_password"
+                android:layout_width="222dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:hint="@string/hint_confirm_password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/grey_400"
+                android:textCursorDrawable="@drawable/bg_cursor"
+                android:textSize="15sp"/>
+
+            <ImageView
+                android:id="@+id/iv_confirm_password_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_delete"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_sign_up"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_button_click"
+        android:enabled="false"
+        android:text="@string/text_sign_up"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
+
+</LinearLayout>

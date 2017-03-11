@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/white</color>
+    <color name="colorAccent">@color/blue_500</color>
+
+    <!--底部导航按钮正常颜色-->
+    <color name="rb_normal">@color/grey_500</color>
+    <!--底部导航按钮被选中时的颜色-->
+    <color name="rb_selected">@color/red_500</color>
+    <!--常用颜色-->
+    <!--White-->
+    <color name="white">#FFFFFF</color>
+    <!--Black-->
+    <color name="black">#000000</color>
+    <!--Red-->
+    <color name="red_50">#FFEBEE</color>
+    <color name="red_100">#FFCDD2</color>
+    <color name="red_200">#EF9A9A</color>
+    <color name="red_300">#E57373</color>
+    <color name="red_400">#EF5350</color>
+    <color name="red_500">#F44336</color>
+    <color name="red_600">#E53935</color>
+    <color name="red_700">#D32F2F</color>
+    <color name="red_800">#C62828</color>
+    <color name="red_900">#B71C1C</color>
+    <color name="red_A100">#FF8A80</color>
+    <color name="red_A200">#FF5252</color>
+    <color name="red_A400">#FF1744</color>
+    <color name="red_A700">#D50000</color>
+    <!--Deep-Orange-->
+    <color name="deepOrange_50">#FBE9E7</color>
+    <color name="deepOrange_100">#FFCCBC</color>
+    <color name="deepOrange_200">#FFAB91</color>
+    <color name="deepOrange_300">#FF8A65</color>
+    <color name="deepOrange_400">#FF7043</color>
+    <color name="deepOrange_500">#FF5722</color>
+    <color name="deepOrange_600">#F4511E</color>
+    <color name="deepOrange_700">#E64A19</color>
+    <color name="deepOrange_800">#D84315</color>
+    <color name="deepOrange_900">#BF360C</color>
+    <color name="deepOrange_A100">#FF9E80</color>
+    <color name="deepOrange_A200">#FF6E40</color>
+    <color name="deepOrange_A400">#FF3D00</color>
+    <color name="deepOrange_A700">#DD2C00</color>
+    <!--Grey-->
+    <color name="grey_50">#FAFAFA</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_600">#757575</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_900">#212121</color>
+    <!--Blue-->
+    <color name="blue_50">#5677FC</color>
+    <color name="blue_100">#D0D9FF</color>
+    <color name="blue_200">#AFBFFF</color>
+    <color name="blue_300">#91A7FF</color>
+    <color name="blue_400">#738FFE</color>
+    <color name="blue_500">#5677FC</color>
+    <color name="blue_600">#4E6CEF</color>
+    <color name="blue_700">#455EDE</color>
+    <color name="blue_800">#3B50CE</color>
+    <color name="blue_900">#2A36B1</color>
+    <color name="blue_A100">#A6BAFF</color>
+    <color name="blue_A200">#6889FF</color>
+    <color name="blue_A400">#4D73FF</color>
+    <color name="blue_A700">#4D69FF</color>
+    <!--Green-->
+    <color name="green_50">#D0F8CE</color>
+    <color name="green_100">#A3E9A4</color>
+    <color name="green_200">#72D572</color>
+    <color name="green_300">#42BD41</color>
+    <color name="green_400">#2BAF2B</color>
+    <color name="green_500">#259B24</color>
+    <color name="green_600">#0A8F08</color>
+    <color name="green_700">#0A7E07</color>
+    <color name="green_800">#056F00</color>
+    <color name="green_900">#0D5302</color>
+    <color name="green_A100">#A2F78D</color>
+    <color name="green_A200">#5AF158</color>
+    <color name="green_A400">#14E715</color>
+    <color name="green_A700">#12C700</color>
+</resources>

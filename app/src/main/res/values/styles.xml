@@ -1,0 +1,43 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!--欢迎页面主题-->
+    <style name="WelcomeTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/bg_welcome</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--引导页面主题-->
+    <style name="GuideTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--闪屏页面主题-->
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--底部导航按钮主题-->
+    <style name="BottomTabButtonTheme">
+        <item name="android:padding">5dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/rb_text_selector</item>
+    </style>
+
+    <!--工具条主题-->
+    <style name="ToolBarTheme" parent="Base.Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">0dp</item>
+    </style>
+
+</resources>

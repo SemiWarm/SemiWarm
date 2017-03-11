@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--指定图层背景色-->
+    <item android:drawable="@color/white"/>
+    <!--指定图层图片资源-->
+    <item>
+        <bitmap
+            android:filter="true"
+            android:src="@drawable/welcome"/>
+    </item>
+</layer-list>

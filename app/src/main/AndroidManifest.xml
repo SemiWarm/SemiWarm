@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="app.semiwarm.cn">
+
+    <!--允许联网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+
+        <!-- 欢迎页面 -->
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:theme="@style/WelcomeTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- 引导界面 -->
+        <activity
+            android:name=".activity.GuideActivity"
+            android:theme="@style/GuideTheme">
+        </activity>
+        <!-- 闪屏界面 -->
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/SplashTheme">
+        </activity>
+        <!-- 主界面 -->
+        <activity
+            android:name=".activity.MainActivity">
+        </activity>
+        <!-- 广告描述信息界面 -->
+        <activity
+            android:name=".activity.SplashDetailActivity">
+        </activity>
+        <!-- 搜索界面 -->
+        <activity
+            android:name=".activity.SearchActivity">
+        </activity>
+        <!-- 登录界面 -->
+        <activity
+            android:name=".activity.SignInActivity">
+        </activity>
+        <!-- 注册界面 -->
+        <activity
+            android:name=".activity.SignUpActivity">
+        </activity>
+
+    </application>
+
+</manifest>
