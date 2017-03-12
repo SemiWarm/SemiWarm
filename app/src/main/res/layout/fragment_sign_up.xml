@@ -31,7 +31,7 @@
 
             <EditText
                 android:id="@+id/et_account_name"
-                android:layout_width="222dp"
+                android:layout_width="178dp"
                 android:layout_height="50dp"
                 android:background="@null"
                 android:hint="@string/text_hint_username"
@@ -39,6 +39,14 @@
                 android:textColorHint="@color/grey_400"
                 android:textCursorDrawable="@drawable/bg_cursor"
                 android:textSize="15sp"/>
+
+            <ImageView
+                android:id="@+id/iv_account_name_available"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"/>
 
             <ImageView
                 android:id="@+id/iv_account_name_clear"
@@ -72,7 +80,7 @@
 
             <EditText
                 android:id="@+id/et_password"
-                android:layout_width="222dp"
+                android:layout_width="178dp"
                 android:layout_height="50dp"
                 android:background="@null"
                 android:hint="@string/hint_password"
@@ -80,6 +88,14 @@
                 android:textColorHint="@color/grey_400"
                 android:textCursorDrawable="@drawable/bg_cursor"
                 android:textSize="15sp"/>
+
+            <ImageView
+                android:id="@+id/iv_password_available"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"/>
 
             <ImageView
                 android:id="@+id/iv_password_clear"
@@ -113,7 +129,7 @@
 
             <EditText
                 android:id="@+id/et_confirm_password"
-                android:layout_width="222dp"
+                android:layout_width="178dp"
                 android:layout_height="50dp"
                 android:background="@null"
                 android:hint="@string/hint_confirm_password"
@@ -121,6 +137,14 @@
                 android:textColorHint="@color/grey_400"
                 android:textCursorDrawable="@drawable/bg_cursor"
                 android:textSize="15sp"/>
+
+            <ImageView
+                android:id="@+id/iv_confirm_password_available"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"/>
 
             <ImageView
                 android:id="@+id/iv_confirm_password_clear"

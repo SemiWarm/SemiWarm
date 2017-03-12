@@ -25,6 +25,14 @@ public interface UserService {
      * @param phone 手机号
      * @return 用户信息
      */
-    @GET("users/{phone}")
+    @GET("users/phone/{phone}")
     Call<User> getUserByPhone(@Path("phone") String phone);
+
+    /**
+     * 根据用户名获取用户信息
+     * @param name 用户名
+     * @return 用户信息
+     */
+    @GET("users/name/{name}")
+    Call<User> getUserByName(@Path("name") String name);
 }

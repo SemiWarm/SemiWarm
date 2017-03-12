@@ -1,6 +1,7 @@
 package app.semiwarm.cn.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户类
@@ -13,7 +14,7 @@ public class User implements Serializable {
     private String userPhone; // 用户手机号
     private String password; // 密码
     private Boolean status = true; // 账号是否可用->默认可用
-    private String createTime;// 用户创建时间
+    private Date createTime;// 用户创建时间
 
     public String getUserId() {
         return userId;
@@ -55,11 +56,11 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
