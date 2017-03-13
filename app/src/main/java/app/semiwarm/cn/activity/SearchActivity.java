@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import app.semiwarm.cn.R;
+import app.semiwarm.cn.utils.EditTextUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -18,6 +19,8 @@ public class SearchActivity extends AppCompatActivity {
     ImageView mCloseImageView;
     @BindView(R.id.et_search)
     EditText mSearchEditText;
+    @BindView(R.id.iv_search_clear)
+    ImageView mSearchClearImageView;
     @BindView(R.id.iv_search_button)
     ImageView mSearchImageView;
 
@@ -40,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
             }
         });
+        EditTextUtils.addClearListener(mSearchEditText,mSearchClearImageView);
 
     }
 
