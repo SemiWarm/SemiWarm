@@ -107,12 +107,12 @@
                 android:textSize="15sp"/>
 
             <ImageView
-                android:id="@+id/iv_password_clear"
+                android:id="@+id/iv_password_eye"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_delete"
+                android:src="@drawable/ic_eye"
                 android:visibility="invisible"/>
 
         </LinearLayout>

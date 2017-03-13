@@ -9,18 +9,18 @@ import java.util.Date;
  */
 
 public class User implements Serializable {
-    private String userId; // 用户ID
+    private Long userId; // 用户ID
     private String userName; // 用户名称
     private String userPhone; // 用户手机号
     private String password; // 密码
-    private Boolean status = true; // 账号是否可用->默认可用
-    private Date createTime;// 用户创建时间
+    private Boolean status; // 账号是否可用->默认可用
+    private Date createAt;// 用户创建时间
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -56,23 +56,23 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreateAt() {
+        return createAt;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "userId='" + userId + '\'' +
+                "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", userPhone='" + userPhone + '\'' +
                 ", password='" + password + '\'' +
                 ", status=" + status +
-                ", createTime=" + createTime +
+                ", createAt=" + createAt +
                 '}';
     }
 }

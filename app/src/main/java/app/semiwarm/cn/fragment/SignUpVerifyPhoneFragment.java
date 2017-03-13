@@ -28,7 +28,7 @@ import app.semiwarm.cn.R;
 import app.semiwarm.cn.entity.MessageResponse;
 import app.semiwarm.cn.entity.User;
 import app.semiwarm.cn.service.UserService;
-import app.semiwarm.cn.utils.EditTextClearUtils;
+import app.semiwarm.cn.utils.EditTextUtils;
 import app.semiwarm.cn.utils.MessageUtils;
 import app.semiwarm.cn.utils.StringUtils;
 import butterknife.BindView;
@@ -155,7 +155,7 @@ public class SignUpVerifyPhoneFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         // 为mPhoneEditText添加一键清空监听
-        EditTextClearUtils.addClearListener(mPhoneEditText, mPhoneClearImageView);
+        EditTextUtils.addClearListener(mPhoneEditText, mPhoneClearImageView);
 
         // 为mPhoneEditText添加内容监听
         mPhoneEditText.addTextChangedListener(new TextWatcher() {
