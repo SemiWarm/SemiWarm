@@ -1,6 +1,7 @@
 package app.semiwarm.cn.fragment;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -62,6 +63,8 @@ public class SignUpVerifyPhoneFragment extends Fragment {
     private final static int SUCCESS = 1;
     private final static int FAILURE = -1;
 
+    private ProgressDialog dialog;
+
     private Runnable mRunnable = new Runnable() {
 
         @Override
@@ -95,13 +98,13 @@ public class SignUpVerifyPhoneFragment extends Fragment {
                     mHandler.sendMessage(message);
                 } else {
                     message.what = FAILURE;
-                    bundle.putString("error", "短信发送失败，请稍后再试！");
+                    bundle.putString("error", "验证码发送失败，请稍后再试!");
                     message.setData(bundle);
                     mHandler.sendMessage(message);
                 }
             } else {
                 message.what = FAILURE;
-                bundle.putString("error", "请求失败！");
+                bundle.putString("error", "验证码发送失败，请稍后再试!");
                 message.setData(bundle);
                 mHandler.sendMessage(message);
             }
@@ -112,6 +115,8 @@ public class SignUpVerifyPhoneFragment extends Fragment {
         @Override
         public void handleMessage(Message message) {
             super.handleMessage(message);
+            // 收到信息后关闭对话框
+            dialog.dismiss();
             // 从上文中Hander发送的信息中获取请求结果并存入Bundle
             Bundle bundle = message.getData();
             switch (message.what) {
@@ -125,7 +130,6 @@ public class SignUpVerifyPhoneFragment extends Fragment {
 
                         Fragment signUpVerifyCodeFragment = new SignUpVerifyCodeFragment();
                         EventBus.getDefault().post(hashMap);
-
                         SignUpVerifyPhoneFragment.this
                                 .getActivity()
                                 .getSupportFragmentManager()
@@ -189,7 +193,11 @@ public class SignUpVerifyPhoneFragment extends Fragment {
         mGetCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // 点击按钮开始加载对话框
+                dialog = new ProgressDialog(getContext());
+                dialog.setCancelable(false); // 不可以被取消
+                dialog.setMessage("正在发送验证码...");
+                dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 // 必须要加上时间转换否则无法将json转换成object
                 Gson gson = new GsonBuilder()
                         .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -212,6 +220,7 @@ public class SignUpVerifyPhoneFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
+                        dialog.show();
                         // 开启网络请求线程
                         new Thread(mRunnable).start();
                     }

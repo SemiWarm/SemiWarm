@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">@color/white</color>
     <color name="colorPrimaryDark">@color/white</color>
-    <color name="colorAccent">@color/blue_500</color>
+    <color name="colorAccent">@color/deepOrange_300</color>
 
     <!--底部导航按钮正常颜色-->
     <color name="rb_normal">@color/grey_500</color>
