@@ -135,7 +135,7 @@ public class IndexFragment extends Fragment {
         for (int i = 0; i < mImageResId.length; i++) {
             imageView = new ImageView(getContext());
             Glide
-                    .with(getContext())
+                    .with(this)
                     .load(mImageResId[i])
                     .into(imageView);
             mImageViewList.add(imageView);
