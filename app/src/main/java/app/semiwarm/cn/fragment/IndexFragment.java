@@ -4,6 +4,7 @@ package app.semiwarm.cn.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,6 @@ import java.util.List;
 
 import app.semiwarm.cn.R;
 import app.semiwarm.cn.adapter.UnlimitedViewPagerAdapter;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 首页
@@ -28,7 +27,7 @@ import butterknife.ButterKnife;
  */
 public class IndexFragment extends Fragment {
 
-    private int[] mImageResId = new int[]{R.drawable.image10, R.drawable.image09, R.drawable.image08, R.drawable.image07, R.drawable.image06};
+    private int[] mImageResId = new int[]{R.drawable.image01, R.drawable.image02, R.drawable.image03, R.drawable.image04, R.drawable.image05};
 
     private List<ImageView> mImageViewList;
 
@@ -36,14 +35,13 @@ public class IndexFragment extends Fragment {
 
     private boolean mIsRotating = false;
 
-    @BindView(R.id.vp_cycle_image_container)
-    ViewPager mCycleImageContainer;
+    private ViewPager mImagesViewPager;
 
-    @BindView(R.id.ll_dots_container)
-    LinearLayout mDotsContainer;
+    private LinearLayout mDotsContainer;
 
-    @BindView(R.id.iv_selected_dots)
-    ImageView mSelectedDots;
+    private ImageView mSelectedDots;
+
+    private static final int mInitMargin = 20;
 
     public IndexFragment() {
         // Required empty public constructor
@@ -52,16 +50,20 @@ public class IndexFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_index, container, false);
-        ButterKnife.bind(this, view);
 
-        initImageViewAndDots();
+        initImagesContainer(view);
 
-        mCycleImageContainer.setAdapter(new UnlimitedViewPagerAdapter(mImageViewList));
+        initImageViewAndDots(view);
+
+        mSelectedDots = (ImageView) view.findViewById(R.id.iv_selected_dots);
+
+        mImagesViewPager.setAdapter(new UnlimitedViewPagerAdapter(mImageViewList));
 
         // 设置当前位置为最大值的中间值，这样就实现了向左是无限循环向右也是无限循环
         int initPosition = Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2 % mImageViewList.size());
-        mCycleImageContainer.setCurrentItem(initPosition);
+        mImagesViewPager.setCurrentItem(initPosition);
 
         // 获取小圆点之间的距离
         mSelectedDots.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -72,7 +74,7 @@ public class IndexFragment extends Fragment {
             }
         });
 
-        mCycleImageContainer.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mImagesViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -108,7 +110,7 @@ public class IndexFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                mCycleImageContainer.setCurrentItem(mCycleImageContainer.getCurrentItem() + 1);
+                                mImagesViewPager.setCurrentItem(mImagesViewPager.getCurrentItem() + 1);
                             }
                         });
                     }
@@ -127,8 +129,23 @@ public class IndexFragment extends Fragment {
         }
     }
 
-    private void initImageViewAndDots() {
+    private void initImagesContainer(View view) {
+        LinearLayout imagesContainer = (LinearLayout) view.findViewById(R.id.ll_images_container);
+        mImagesViewPager = new ViewPager(getContext());
 
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        int width = dm.widthPixels;
+        int height = width * 5 / 12;
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width,height);
+        mImagesViewPager.setLayoutParams(layoutParams);
+
+        imagesContainer.addView(mImagesViewPager);
+    }
+
+    private void initImageViewAndDots(View view) {
+
+        mDotsContainer = (LinearLayout) view.findViewById(R.id.ll_dots_container);
         mImageViewList = new ArrayList<>();
         ImageView imageView;
         ImageView dots;
@@ -144,7 +161,7 @@ public class IndexFragment extends Fragment {
             dots.setImageResource(R.drawable.bg_normal_dots);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             if (i > 0) {
-                layoutParams.setMarginStart(20);
+                layoutParams.setMarginStart(mInitMargin);
             }
             dots.setLayoutParams(layoutParams);
             mDotsContainer.addView(dots);
