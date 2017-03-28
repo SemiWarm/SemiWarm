@@ -103,6 +103,7 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
                     .with(this)
                     .load(mImageResId[i])
                     .into(imageView);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             mImageViewList.add(imageView);
 
             dots = new ImageView(this);

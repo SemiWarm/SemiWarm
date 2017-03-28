@@ -14,8 +14,7 @@
         <android.support.v7.widget.Toolbar
             style="@style/ToolBarTheme"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white">
+            android:layout_height="?attr/actionBarSize">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -55,7 +54,6 @@
             android:id="@+id/tb_sort_tabs"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:background="@color/white"
             app:tabIndicatorColor="@color/red_700"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/red_700"

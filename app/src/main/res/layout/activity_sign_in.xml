@@ -20,14 +20,14 @@
         android:id="@+id/iv_logo"
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/logo"/>
 
     <!--描述-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="@string/text_logo_desc"
         android:textColor="@color/black"
         android:textSize="16sp"/>
@@ -36,7 +36,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/bg_input_field"
         android:orientation="vertical">
 
@@ -123,7 +123,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
         <TextView
@@ -150,7 +150,7 @@
         android:id="@+id/btn_sign_in"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/bg_sign_in_button"
         android:text="@string/text_sign_in"
         android:textColor="@color/white"
@@ -161,20 +161,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:text="@string/text_third_login"
-        android:textColor="@color/grey_400"/>
+        android:textColor="@color/grey_300"/>
 
     <View
         android:layout_width="300dp"
         android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/grey_400"/>
+        android:layout_marginTop="15dp"
+        android:background="@color/grey_300"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:orientation="horizontal">
 

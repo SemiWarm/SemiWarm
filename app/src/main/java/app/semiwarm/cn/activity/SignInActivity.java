@@ -54,7 +54,7 @@ public class SignInActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         // 设置Title
-        mToolbar.setNavigationIcon(getDrawable(R.drawable.ic_btn_close));
+        mToolbar.setNavigationIcon(R.drawable.ic_btn_close);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

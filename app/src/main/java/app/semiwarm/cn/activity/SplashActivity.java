@@ -48,24 +48,6 @@ public class SplashActivity extends AppCompatActivity {
         }
     };
 
-    private void startMainActivity() {
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void startAdInfoActivity() {
-        Intent intent = new Intent(SplashActivity.this, SplashDetailActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void startGuideActivity() {
-        Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,12 +59,14 @@ public class SplashActivity extends AppCompatActivity {
                 .with(this)
                 .load(R.drawable.your_name)
                 .into(mSplashImage);
+        // 设置图片自适应宽高
+        mSplashImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         // 点击广告后跳至广告界面，同时移除倒计时线程
         mSplashImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 关闭广告界面或者在广告界面按返回键时启动主界面
-                startAdInfoActivity();
+                startSplashDetailActivity();
                 mHandler.removeCallbacks(mCountDownRunnable);
             }
         });
@@ -96,6 +80,24 @@ public class SplashActivity extends AppCompatActivity {
         });
         // 启动线程
         mHandler.postDelayed(mCountDownRunnable, 1000);
+    }
+
+    private void startMainActivity() {
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void startSplashDetailActivity() {
+        Intent intent = new Intent(SplashActivity.this, SplashDetailActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void startGuideActivity() {
+        Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     // 屏蔽返回键和菜单键
