@@ -20,9 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_below="@id/ll_images_container"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="-15dp"
-            android:layout_below="@id/ll_images_container">
+            android:layout_marginTop="-15dp">
 
             <LinearLayout
                 android:id="@+id/ll_dots_container"
@@ -39,5 +39,7 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
+    <include layout="@layout/view_service_desc"/>
 
 </LinearLayout>

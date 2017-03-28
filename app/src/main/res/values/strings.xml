@@ -30,4 +30,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_reacquire_code">重新获取验证码</string>
+    <string name="service_desc_3">48小时快速退款</string>
+    <string name="service_desc_2">30天无忧退货</string>
+    <string name="service_desc_1">半暖自营品牌</string>
 </resources>
