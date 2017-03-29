@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
     ImageView mSplashImage;
     @BindView(R.id.tv_skip_button)
     TextView mSkipButton;
-    private int mSplashDuration = 3; // 广告显示时长
+    private int mSplashDuration = 9; // 广告显示时长
     private Handler mHandler = new Handler();
     // 在线程里更新UI
     private Runnable mCountDownRunnable = new Runnable() {
@@ -57,7 +57,7 @@ public class SplashActivity extends AppCompatActivity {
         // 使用第三方图片加载器加载大图防止OOM
         Glide
                 .with(this)
-                .load(R.drawable.your_name)
+                .load(R.drawable.splash)
                 .into(mSplashImage);
         // 设置图片自适应宽高
         mSplashImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
