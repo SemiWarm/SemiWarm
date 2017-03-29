@@ -12,6 +12,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -20,6 +21,8 @@ import java.util.List;
 
 import app.semiwarm.cn.R;
 import app.semiwarm.cn.adapter.UnlimitedViewPagerAdapter;
+import app.semiwarm.cn.entity.RotationNotice;
+import app.semiwarm.cn.view.VerticalScrollTextView;
 
 /**
  * 首页
@@ -118,7 +121,25 @@ public class IndexFragment extends Fragment {
             }
         }.start();
 
+        initRotationNoticeView(view);
+
         return view;
+    }
+
+    private void initRotationNoticeView(View view) {
+        VerticalScrollTextView rotationNoticeView = (VerticalScrollTextView) view.findViewById(R.id.vstv_rotation_notice);
+        List<RotationNotice> rotationNoticeList = new ArrayList<>();
+        rotationNoticeList.add(new RotationNotice(2017032901L,"\"愚\"快购物","愚人节，购物狂欢！"));
+        rotationNoticeList.add(new RotationNotice(2017032902L,"你不知道的秘密","99%的人不知道的秘密！"));
+        rotationNoticeList.add(new RotationNotice(2017032903L,"新品上架","春季新品上线，不买就out了！"));
+        rotationNoticeList.add(new RotationNotice(2017032904L,"爆款特惠","全场五折，欢迎抢购！"));
+        rotationNoticeView.setRotationNoticeList(rotationNoticeList);
+        rotationNoticeView.setOnItemClickListener(new VerticalScrollTextView.OnItemClickListener() {
+            @Override
+            public void onClick(Long noticeId) {
+                Toast.makeText(getContext(),String.valueOf(noticeId),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

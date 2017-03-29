@@ -43,4 +43,6 @@
 
     <include layout="@layout/view_service_desc"/>
 
+    <include layout="@layout/view_rotation_notice"/>
+
 </LinearLayout>

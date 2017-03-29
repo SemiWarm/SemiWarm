@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VerticalScrollTextView">
+        <!--文字轮播速度-->
+        <attr name="text_view_scroll_speed" format="integer"/>
+        <!--文字停留时间-->
+        <attr name="text_view_interval" format="integer"/>
+        <!--文字标题颜色-->
+        <attr name="text_view_title_color" format="color"/>
+        <!--文字内容颜色-->
+        <attr name="text_view_content_color" format="color"/>
+        <!--文字标题大小-->
+        <attr name="text_view_title_size" format="dimension"/>
+        <!--文字内容大小-->
+        <attr name="text_view_content_size" format="dimension"/>
+    </declare-styleable>
+</resources>
