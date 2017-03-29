@@ -12,8 +12,8 @@
         android:id="@+id/iv_search_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_search"
-        android:contentDescription="@string/ic_search_desc"/>
+        android:contentDescription="@string/ic_search_desc"
+        android:src="@drawable/ic_search"/>
 
     <TextView
         android:id="@+id/tv_search_desc"

@@ -23,8 +23,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
             android:text="@string/service_desc_1"
-            android:textSize="12sp"/>
+            android:textSize="13sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -42,8 +43,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
             android:text="@string/service_desc_2"
-            android:textSize="12sp"/>
+            android:textSize="13sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -61,8 +63,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
             android:text="@string/service_desc_3"
-            android:textSize="12sp"/>
+            android:textSize="13sp"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -12,8 +12,9 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_title"
+        style="@style/ToolBarTheme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="?attr/actionBarSize"/>
 
     <!--logo-->
     <ImageView

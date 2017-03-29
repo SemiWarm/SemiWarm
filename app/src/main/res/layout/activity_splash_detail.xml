@@ -5,7 +5,6 @@
     android:id="@+id/activity_splash_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_50"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="app.semiwarm.cn.activity.SplashDetailActivity">
@@ -13,7 +12,9 @@
     <!--注意需要fitsSystemWindows属性，否则会出现工具栏自动适配高度的问题-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_title"
+        style="@style/ToolBarTheme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"/>
 
 </LinearLayout>

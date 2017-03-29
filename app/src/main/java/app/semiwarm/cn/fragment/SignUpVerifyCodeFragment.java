@@ -64,8 +64,7 @@ public class SignUpVerifyCodeFragment extends Fragment {
                         Fragment signUpFragment = new SignUpFragment();
                         // 然后发送数据
                         EventBus.getDefault().post(phone);
-                        SignUpVerifyCodeFragment.this
-                                .getActivity()
+                        getActivity()
                                 .getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fl_sign_up, signUpFragment)

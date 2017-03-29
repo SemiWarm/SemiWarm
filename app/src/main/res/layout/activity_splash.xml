@@ -5,7 +5,7 @@
     android:id="@+id/activity_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_50"
+    android:fitsSystemWindows="true"
     tools:context="app.semiwarm.cn.activity.SplashActivity">
 
     <ImageView

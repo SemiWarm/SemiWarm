@@ -78,6 +78,8 @@ public class SignUpVerifyPhoneFragment extends Fragment {
             String SMSContent = SMSTemplate + code;
             // 获取手机号
             phone = mPhoneEditText.getText().toString();
+            // 在发送网络请求之前必须进行进行网络检查
+            // ********我是分割线，记得进行网络检查********
             // 发送信息
             String response = MessageUtils.sendSignUpMessage(apiKey, SMSContent, phone);
             // 将JSON数据转化成MessageResponse对象
@@ -117,7 +119,7 @@ public class SignUpVerifyPhoneFragment extends Fragment {
             super.handleMessage(message);
             // 收到信息后关闭对话框
             dialog.dismiss();
-            // 从上文中Hander发送的信息中获取请求结果并存入Bundle
+            // 从上文中Handler发送的信息中获取请求结果并存入Bundle
             Bundle bundle = message.getData();
             switch (message.what) {
                 case SUCCESS:
@@ -130,8 +132,7 @@ public class SignUpVerifyPhoneFragment extends Fragment {
 
                         Fragment signUpVerifyCodeFragment = new SignUpVerifyCodeFragment();
                         EventBus.getDefault().post(hashMap);
-                        SignUpVerifyPhoneFragment.this
-                                .getActivity()
+                        getActivity()
                                 .getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fl_sign_up,signUpVerifyCodeFragment)
@@ -142,6 +143,8 @@ public class SignUpVerifyPhoneFragment extends Fragment {
                 case FAILURE:
                     String error = bundle.getString("error");
                     Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+                    // 设置获取验证码按钮为可用状态
+                    mGetCodeButton.setEnabled(true);
                     break;
             }
         }
@@ -198,6 +201,10 @@ public class SignUpVerifyPhoneFragment extends Fragment {
                 dialog.setCancelable(false); // 不可以被取消
                 dialog.setMessage("正在发送验证码...");
                 dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                // 设置获取验证码按钮不可用
+                mGetCodeButton.setEnabled(false);
+                // 显示加载对话框
+                dialog.show();
                 // 必须要加上时间转换否则无法将json转换成object
                 Gson gson = new GsonBuilder()
                         .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -214,12 +221,18 @@ public class SignUpVerifyPhoneFragment extends Fragment {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (null != response.body()) {
+                            // 关闭加载对话框
+                            dialog.dismiss();
+                            // 提示用户错误信息
                             Toast.makeText(getActivity(), "该手机号已被注册", Toast.LENGTH_SHORT).show();
+                            // 设置获取验证码按钮可用
+                            mGetCodeButton.setEnabled(true);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
+                        // 显示加载对话框
                         dialog.show();
                         // 开启网络请求线程
                         new Thread(mRunnable).start();
