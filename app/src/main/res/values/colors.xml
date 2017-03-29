@@ -5,7 +5,7 @@
     <color name="colorAccent">@color/deepOrange_300</color>
 
     <!--底部导航按钮正常颜色-->
-    <color name="rb_normal">@color/grey_500</color>
+    <color name="rb_normal">@color/grey_700</color>
     <!--底部导航按钮被选中时的颜色-->
     <color name="rb_selected">@color/red_500</color>
     <!--常用颜色-->

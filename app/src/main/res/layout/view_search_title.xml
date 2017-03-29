@@ -36,7 +36,7 @@
                 android:src="@drawable/ic_search_logo"/>
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="0.5dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="8dp"
                 android:background="@color/grey_300"/>

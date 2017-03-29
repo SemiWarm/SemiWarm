@@ -80,7 +80,7 @@
         <!--分割线-->
         <View
             android:layout_width="300dp"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="@color/grey_400"/>
 
         <!--密码输入框-->
@@ -168,7 +168,7 @@
 
     <View
         android:layout_width="300dp"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginTop="15dp"
         android:background="@color/grey_300"/>
 
@@ -183,21 +183,24 @@
             android:id="@+id/iv_third_qq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_third_qq"/>
+            android:src="@drawable/ic_third_qq"
+            android:background="@drawable/bg_third_sign_in"/>
 
         <ImageView
             android:id="@+id/iv_third_wechat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:src="@drawable/ic_third_wechat"/>
+            android:src="@drawable/ic_third_wechat"
+            android:background="@drawable/bg_third_sign_in"/>
 
         <ImageView
             android:id="@+id/iv_third_weibo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:src="@drawable/ic_third_weibo"/>
+            android:src="@drawable/ic_third_weibo"
+            android:background="@drawable/bg_third_sign_in"/>
 
     </LinearLayout>
 </LinearLayout>

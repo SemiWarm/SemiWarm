@@ -37,7 +37,7 @@
             android:textSize="20sp"/>
 
         <View
-            android:layout_width="1dp"
+            android:layout_width="0.5dp"
             android:layout_height="35dp"
             android:layout_marginStart="5dp"
             android:background="@color/grey_500"/>

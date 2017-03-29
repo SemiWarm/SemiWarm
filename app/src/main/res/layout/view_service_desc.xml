@@ -23,8 +23,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="5dp"
             android:text="@string/service_desc_1"
+            android:textColor="@color/grey_700"
             android:textSize="13sp"/>
     </LinearLayout>
 
@@ -43,8 +44,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="5dp"
             android:text="@string/service_desc_2"
+            android:textColor="@color/grey_700"
             android:textSize="13sp"/>
     </LinearLayout>
 
@@ -63,8 +65,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="5dp"
             android:text="@string/service_desc_3"
+            android:textColor="@color/grey_700"
             android:textSize="13sp"/>
     </LinearLayout>
 
