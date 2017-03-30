@@ -36,21 +36,4 @@ public class SharedPreferencesUtils {
             return false;
         }
     }
-
-    /**
-     * 检查本地是否存储有广告信息
-     *
-     * @param context 应用上下文
-     * @return 布尔值
-     */
-    public static boolean isSplashInfoStored(Context context) {
-        // 查看本地SharedPreferences文件中是否存储有Splash的信息
-        SharedPreferences spSplashInfo = context.getSharedPreferences("SplashInfo",Context.MODE_PRIVATE);
-        String splashId = spSplashInfo.getString("SplashId",null);
-        return splashId != null;
-    }
-
-    public static void getAndStoreSplashInfo(Context context){
-        // 通过api从服务器获取最新的SplashInfo信息
-    }
 }

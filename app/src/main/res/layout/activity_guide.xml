@@ -38,17 +38,17 @@
 
     <!--注册登录按钮-->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <!--登录按钮-->
         <Button
             android:id="@+id/btn_sign_in"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:background="@drawable/bg_sign_in_button"
             android:text="@string/text_sign_in"
@@ -58,9 +58,9 @@
         <!--注册按钮-->
         <Button
             android:id="@+id/btn_sign_up"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="30dp"
             android:background="@drawable/bg_sign_up_button"
             android:text="@string/text_sign_up"
             android:textColor="@color/white"

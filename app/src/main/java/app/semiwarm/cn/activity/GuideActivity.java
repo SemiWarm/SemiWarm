@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 public class GuideActivity extends BaseActivity implements View.OnClickListener {
 
     // 准备引导图资源
-    private int[] mImageResId = new int[]{R.drawable.guide_1, R.drawable.guide_3, R.drawable.guide_4};
+    private int[] mImageResId = new int[]{R.drawable.guide20170310, R.drawable.guide20170320, R.drawable.guide20170330};
     // 准备ImageView数组
     private List<ImageView> mImageViewList;
     // 准备小圆点之间的距离
