@@ -61,6 +61,11 @@ public class SplashActivity extends AppCompatActivity {
                 .into(mSplashImage);
         // 设置图片自适应宽高
         mSplashImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        // 启动线程
+        mHandler.post(mCountDownRunnable);
+        //mHandler.postDelayed(mCountDownRunnable, 1000);
+
         // 点击广告后跳至广告界面，同时移除倒计时线程
         mSplashImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,8 +83,6 @@ public class SplashActivity extends AppCompatActivity {
                 startGuideActivity();
             }
         });
-        // 启动线程
-        mHandler.postDelayed(mCountDownRunnable, 1000);
     }
 
     private void startMainActivity() {
