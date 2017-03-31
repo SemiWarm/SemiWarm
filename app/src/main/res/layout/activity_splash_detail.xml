@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_splash_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
     tools:context="app.semiwarm.cn.activity.SplashDetailActivity">
 
-    <!--注意需要fitsSystemWindows属性，否则会出现工具栏自动适配高度的问题-->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tb_title"
-        style="@style/ToolBarTheme"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"/>
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
 
-</LinearLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_title"
+            style="@style/ToolBarTheme"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+</android.support.design.widget.CoordinatorLayout>

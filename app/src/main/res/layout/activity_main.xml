@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -8,73 +8,81 @@
     android:fitsSystemWindows="true"
     tools:context="app.semiwarm.cn.activity.MainActivity">
 
-    <!--导航页面-->
-    <app.semiwarm.cn.view.MotionlessViewPager
-        android:id="@+id/mvp_navigation_pager"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
-    <!--导航按钮-->
-    <RadioGroup
-        android:id="@+id/rg_navigation_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rb_home"
-            style="@style/BottomTabButtonTheme"
-            android:layout_width="0dp"
+        <!--导航按钮-->
+        <RadioGroup
+            android:id="@+id/rg_navigation_menu"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:drawableTop="@drawable/rb_home_selector"
-            android:text="@string/home_text"/>
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/rb_sort"
-            style="@style/BottomTabButtonTheme"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/rb_sort_selector"
-            android:text="@string/sort_text"/>
+            <RadioButton
+                android:id="@+id/rb_home"
+                style="@style/BottomTabButtonTheme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:drawableTop="@drawable/rb_home_selector"
+                android:text="@string/home_text"/>
 
-        <RadioButton
-            android:id="@+id/rb_explore"
-            style="@style/BottomTabButtonTheme"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/rb_explore_selector"
-            android:text="@string/explore_text"/>
+            <RadioButton
+                android:id="@+id/rb_sort"
+                style="@style/BottomTabButtonTheme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/rb_sort_selector"
+                android:text="@string/sort_text"/>
 
-        <RadioButton
-            android:id="@+id/rb_topics"
-            style="@style/BottomTabButtonTheme"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/rb_topics_selector"
-            android:text="@string/topics_text"/>
+            <RadioButton
+                android:id="@+id/rb_explore"
+                style="@style/BottomTabButtonTheme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/rb_explore_selector"
+                android:text="@string/explore_text"/>
 
-        <RadioButton
-            android:id="@+id/rb_mine"
-            style="@style/BottomTabButtonTheme"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/rb_mine_selector"
-            android:text="@string/mine_text"/>
+            <RadioButton
+                android:id="@+id/rb_topics"
+                style="@style/BottomTabButtonTheme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/rb_topics_selector"
+                android:text="@string/topics_text"/>
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/rb_mine"
+                style="@style/BottomTabButtonTheme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/rb_mine_selector"
+                android:text="@string/mine_text"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_above="@id/rg_navigation_menu"
-        android:background="@color/grey_300"/>
+        </RadioGroup>
 
-</RelativeLayout>
+        <View
+            android:id="@+id/grey_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_above="@id/rg_navigation_menu"
+            android:background="@color/grey_300"/>
+
+        <!--导航页面-->
+        <app.semiwarm.cn.view.MotionlessViewPager
+            android:id="@+id/mvp_navigation_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/grey_line"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

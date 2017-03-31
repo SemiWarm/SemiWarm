@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_search"
     android:layout_width="match_parent"
@@ -8,14 +9,28 @@
     android:fitsSystemWindows="true"
     tools:context="app.semiwarm.cn.activity.SearchActivity">
 
-    <android.support.v7.widget.Toolbar
-        style="@style/ToolBarTheme"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
 
-        <include layout="@layout/view_search_title"/>
+        <android.support.v7.widget.Toolbar
+            style="@style/ToolBarTheme"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
 
-    </android.support.v7.widget.Toolbar>
+            <include layout="@layout/view_search_title"/>
 
-</RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize">
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
