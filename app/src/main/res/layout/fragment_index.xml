@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context="app.semiwarm.cn.fragment.IndexFragment">
 
     <ScrollView
@@ -49,60 +48,6 @@
                 </RelativeLayout>
 
             </RelativeLayout>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
-
-            <include layout="@layout/view_service_desc"/>
 
             <include layout="@layout/view_service_desc"/>
 
