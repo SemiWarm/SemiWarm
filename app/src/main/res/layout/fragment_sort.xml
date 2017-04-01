@@ -60,7 +60,7 @@
             android:layout_height="match_parent"
             android:background="@color/grey_300"/>
 
-        <app.semiwarm.cn.view.VerticalViewPager
+        <app.semiwarm.cn.view.VerticalSlideViewPager
             android:id="@+id/vp_sort_main"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -17,6 +17,10 @@ import app.semiwarm.cn.activity.SearchActivity;
 
 public class SearchView extends LinearLayout {
 
+    public SearchView(Context context) {
+        this(context, null);
+    }
+
     public SearchView(Context context, AttributeSet attrs) {
         super(context, attrs);
         View view = LayoutInflater.from(context).inflate(R.layout.view_search, this);

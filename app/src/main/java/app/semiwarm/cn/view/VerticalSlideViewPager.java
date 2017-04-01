@@ -11,12 +11,12 @@ import android.view.View;
  * Created by alibct on 2017/3/3.
  */
 
-public class VerticalViewPager extends ViewPager {
-    public VerticalViewPager(Context context) {
+public class VerticalSlideViewPager extends ViewPager {
+    public VerticalSlideViewPager(Context context) {
         this(context, null);
     }
 
-    public VerticalViewPager(Context context, AttributeSet attrs) {
+    public VerticalSlideViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

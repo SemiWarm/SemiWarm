@@ -19,7 +19,7 @@ import java.util.List;
 
 import app.semiwarm.cn.R;
 import app.semiwarm.cn.adapter.FragmentAdapter;
-import app.semiwarm.cn.view.VerticalViewPager;
+import app.semiwarm.cn.view.VerticalSlideViewPager;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +44,7 @@ public class SortFragment extends Fragment {
     @BindView(R.id.rg_sort_titles)
     RadioGroup mSortTitle;
     @BindView(R.id.vp_sort_main)
-    VerticalViewPager mSortPagerContainer;
+    VerticalSlideViewPager mSortPagerContainer;
     @BindView(R.id.iv_sort_indicator)
     ImageView mIndicator;
 
@@ -69,7 +69,7 @@ public class SortFragment extends Fragment {
         mSortPagerContainer.setOffscreenPageLimit(mFragmentList.size() - 1);
 
         // 设置滑动模式
-        mSortPagerContainer.setPageTransformer(false, new VerticalViewPager.VerticalTransformer());
+        mSortPagerContainer.setPageTransformer(false, new VerticalSlideViewPager.VerticalTransformer());
         mSortPagerContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
         // 获取上下距离
