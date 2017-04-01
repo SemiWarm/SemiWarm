@@ -37,12 +37,12 @@ public class SignInActivity extends BaseActivity {
     TextView mForgetPasswordTextView;
     @BindView(R.id.btn_sign_in)
     Button mBtnSignIn;
-    @BindView(R.id.iv_third_qq)
-    ImageView mQQImageView;
-    @BindView(R.id.iv_third_wechat)
-    ImageView mWeChatImageView;
-    @BindView(R.id.iv_third_weibo)
-    ImageView mWeiBoImageView;
+//    @BindView(R.id.iv_third_qq)
+//    ImageView mQQImageView;
+//    @BindView(R.id.iv_third_wechat)
+//    ImageView mWeChatImageView;
+//    @BindView(R.id.iv_third_weibo)
+//    ImageView mWeiBoImageView;
 
 
     @Override
