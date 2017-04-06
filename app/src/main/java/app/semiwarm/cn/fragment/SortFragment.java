@@ -77,7 +77,7 @@ public class SortFragment extends Fragment {
             @Override
             public void onGlobalLayout() {
                 mIndicator.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                mIndicatorDistance = -(mSortTitle.getChildAt(0).getTop() - mSortTitle.getChildAt(1).getTop());
+                mIndicatorDistance = mSortTitle.getChildAt(1).getTop() - mSortTitle.getChildAt(0).getBottom() + mSortTitle.getChildAt(0).getHeight();
             }
         });
 
@@ -85,9 +85,10 @@ public class SortFragment extends Fragment {
         mSortPagerContainer.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                int initTopMargin = (mSortTitle.getChildAt(0).getHeight() - mIndicator.getHeight()) / 2 + mInitMargin;
                 int topMargin = (int) (position * mIndicatorDistance + positionOffset * mIndicatorDistance);
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mIndicator.getLayoutParams();
-                layoutParams.topMargin = topMargin + mInitMargin;
+                layoutParams.topMargin = topMargin + initTopMargin;
                 mIndicator.setLayoutParams(layoutParams);
             }
 
