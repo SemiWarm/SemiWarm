@@ -30,7 +30,7 @@ import app.semiwarm.cn.view.VerticalScrollTextView;
  */
 public class IndexFragment extends Fragment {
 
-    private int[] mImageResId = new int[]{R.drawable.image01, R.drawable.image02, R.drawable.image03, R.drawable.image04, R.drawable.image05};
+    private int[] mImageResId = new int[]{R.drawable.bg_20170520, R.drawable.bg_20170521, R.drawable.bg_20170522, R.drawable.bg_20170523, R.drawable.bg_20170524, R.drawable.bg_20170525};
 
     private List<ImageView> mImageViewList;
 
@@ -129,15 +129,15 @@ public class IndexFragment extends Fragment {
     private void initRotationNoticeView(View view) {
         VerticalScrollTextView rotationNoticeView = (VerticalScrollTextView) view.findViewById(R.id.vstv_rotation_notice);
         List<RotationNotice> rotationNoticeList = new ArrayList<>();
-        rotationNoticeList.add(new RotationNotice(2017032901L,"\"愚\"快购物","愚人节，购物狂欢！"));
-        rotationNoticeList.add(new RotationNotice(2017032902L,"你不知道的秘密","99%的人不知道的秘密！"));
-        rotationNoticeList.add(new RotationNotice(2017032903L,"新品上架","春季新品上线，不买就out了！"));
-        rotationNoticeList.add(new RotationNotice(2017032904L,"爆款特惠","全场五折，欢迎抢购！"));
+        rotationNoticeList.add(new RotationNotice(2017032901L, "\"愚\"快购物", "愚人节，购物狂欢！"));
+        rotationNoticeList.add(new RotationNotice(2017032902L, "你不知道的秘密", "99%的人不知道的秘密！"));
+        rotationNoticeList.add(new RotationNotice(2017032903L, "新品上架", "春季新品上线，不买就out了！"));
+        rotationNoticeList.add(new RotationNotice(2017032904L, "爆款特惠", "全场五折，欢迎抢购！"));
         rotationNoticeView.setRotationNoticeList(rotationNoticeList);
         rotationNoticeView.setOnItemClickListener(new VerticalScrollTextView.OnItemClickListener() {
             @Override
             public void onClick(Long noticeId) {
-                Toast.makeText(getContext(),String.valueOf(noticeId),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), String.valueOf(noticeId), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -154,11 +154,12 @@ public class IndexFragment extends Fragment {
         LinearLayout imagesContainer = (LinearLayout) view.findViewById(R.id.ll_images_container);
         mImagesViewPager = new ViewPager(getContext());
 
+        // 根据图片宽高自适应屏幕大小
         DisplayMetrics dm = getResources().getDisplayMetrics();
         int width = dm.widthPixels;
-        int height = width * 5 / 12;
+        int height = width * 9 / 16; // 图片宽高比为16:9
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width,height);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
         mImagesViewPager.setLayoutParams(layoutParams);
 
         imagesContainer.addView(mImagesViewPager);

@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
+import app.semiwarm.cn.entity.Category;
+
 /**
  * 分类Fragment的适配器
  * Created by alibct on 2016/12/26.
@@ -15,12 +17,12 @@ public class SortPageFragmentAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> mFragmentList;
 
-    private String[] mTitles;
+    private List<Category> mCategoryList;
 
-    public SortPageFragmentAdapter(FragmentManager manager, List<Fragment> fragmentList, String[] titles) {
+    public SortPageFragmentAdapter(FragmentManager manager, List<Fragment> fragmentList, List<Category> categoryList) {
         super(manager);
         this.mFragmentList = fragmentList;
-        this.mTitles = titles;
+        this.mCategoryList = categoryList;
     }
 
     @Override
@@ -35,6 +37,6 @@ public class SortPageFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mTitles[position];
+        return mCategoryList.get(position).getCategoryName();
     }
 }

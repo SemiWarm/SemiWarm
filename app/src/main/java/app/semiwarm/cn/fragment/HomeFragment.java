@@ -5,17 +5,23 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import app.semiwarm.cn.R;
 import app.semiwarm.cn.adapter.SortPageFragmentAdapter;
+import app.semiwarm.cn.entity.Category;
+import app.semiwarm.cn.service.observable.CategoryServiceObservable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscriber;
 
 /**
  * 主页
@@ -23,11 +29,8 @@ import butterknife.ButterKnife;
  */
 public class HomeFragment extends Fragment {
 
-    // 类目名称
-    private String[] mSortTitles = new String[]{"推荐", "居家", "餐厨", "配件", "服装", "洗护", "婴童", "杂货", "饮食", "其他"};
-
-    // 类目Fragment
-    private List<Fragment> mFragmentList;
+    // 所有类目信息
+    private List<Category> mCategoryList;
 
     @BindView(R.id.tb_sort_tabs)
     TabLayout mSortTabs;
@@ -45,34 +48,58 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
 
-        initTabsAndFragments();
+        // 请求所有类目信息
+        CategoryServiceObservable categoryService = new CategoryServiceObservable();
+        categoryService.getAllCategories()
+                .subscribe(new Subscriber<List<Category>>() {
+                    @Override
+                    public void onCompleted() {
+                        initTabsAndFragments();
+                    }
 
-        mSortPagerContainer.setAdapter(new SortPageFragmentAdapter(getActivity().getSupportFragmentManager(), mFragmentList, mSortTitles));
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("onError:", e.getMessage());
+                    }
 
-        mSortPagerContainer.setOffscreenPageLimit(mFragmentList.size() - 1);
-
-        mSortTabs.setupWithViewPager(mSortPagerContainer);
+                    @Override
+                    public void onNext(List<Category> categories) {
+                        mCategoryList = new ArrayList<>(categories);
+                        EventBus.getDefault().post(categories);
+                    }
+                });
 
         return view;
     }
 
     private void initTabsAndFragments() {
         // 初始化List
-        mFragmentList = new ArrayList<>();
+        List<Fragment> fragmentList = new ArrayList<>();
         // 初始化第一个Fragment
         Fragment fragment;
-        for (int i = 0; i < mSortTitles.length; i++) {
+        for (int i = 0; i < mCategoryList.size(); i++) {
             // 初始化Tab
-            mSortTabs.addTab(mSortTabs.newTab().setText(mSortTitles[i]), i);
+            mSortTabs.addTab(mSortTabs.newTab().setText(mCategoryList.get(i).getCategoryName()), i);
             // 初始化IndexFragment
             if (i == 0) {
                 fragment = new IndexFragment();
-                mFragmentList.add(fragment);
+                fragmentList.add(fragment);
             } else {
                 // 初始化OtherFragment
                 fragment = new SortPageFragment();
-                mFragmentList.add(fragment);
+                // 为每一个Fragement设置Category信息
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Category", mCategoryList.get(i));
+                fragment.setArguments(bundle);
+                // 添加到容器进行统一管理
+                fragmentList.add(fragment);
             }
         }
+        // 设置适配器
+        mSortPagerContainer.setAdapter(new SortPageFragmentAdapter(getActivity().getSupportFragmentManager(), fragmentList, mCategoryList));
+        // 设置最大缓存
+        mSortPagerContainer.setOffscreenPageLimit(fragmentList.size() - 1);
+        // Tabs关联ViewPager
+        mSortTabs.setupWithViewPager(mSortPagerContainer);
     }
 }

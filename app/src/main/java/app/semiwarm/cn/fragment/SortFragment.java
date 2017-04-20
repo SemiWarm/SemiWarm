@@ -14,11 +14,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import app.semiwarm.cn.R;
 import app.semiwarm.cn.adapter.FragmentAdapter;
+import app.semiwarm.cn.entity.Category;
 import app.semiwarm.cn.view.VerticalSlideViewPager;
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -30,8 +34,7 @@ import butterknife.ButterKnife;
  */
 public class SortFragment extends Fragment {
 
-    private String[] mSortTitles = new String[]{"推荐", "居家", "餐厨", "配件", "服装", "洗护", "婴童", "杂货", "饮食", "其他"};
-    private List<Fragment> mFragmentList;
+    private List<Category> mCategoryList;
     private List<RadioButton> mRadioButtonList;
     private int mIndicatorDistance;
     private final int mInitMargin = 65;
@@ -50,6 +53,7 @@ public class SortFragment extends Fragment {
 
     public SortFragment() {
         // Required empty public constructor
+        EventBus.getDefault().register(this);
     }
 
 
@@ -57,29 +61,6 @@ public class SortFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sort, container, false);
         ButterKnife.bind(this, view);
-
-        initView();
-
-        // 初始化选中项
-        mRadioButtonList.get(0).setChecked(true);
-        mRadioButtonList.get(0).setTextColor(mColorSelected);
-
-        // 设置适配器
-        mSortPagerContainer.setAdapter(new FragmentAdapter(getActivity().getSupportFragmentManager(), mFragmentList));
-        mSortPagerContainer.setOffscreenPageLimit(mFragmentList.size() - 1);
-
-        // 设置滑动模式
-        mSortPagerContainer.setPageTransformer(false, new VerticalSlideViewPager.VerticalTransformer());
-        mSortPagerContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
-
-        // 获取上下距离
-        mIndicator.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mIndicator.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                mIndicatorDistance = mSortTitle.getChildAt(1).getTop() - mSortTitle.getChildAt(0).getTop();
-            }
-        });
 
         // ViewPager滑动事件
         mSortPagerContainer.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -121,19 +102,44 @@ public class SortFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onEvent(List<Category> categoryList) {
+        mCategoryList = new ArrayList<>(categoryList);
+        initView();
+        // 获取上下距离
+        mIndicator.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mIndicator.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                mIndicatorDistance = mSortTitle.getChildAt(1).getTop() - mSortTitle.getChildAt(0).getTop();
+            }
+        });
+    }
+
     private void initView() {
-        mFragmentList = new ArrayList<>();
+        List<Fragment> fragmentList = new ArrayList<>();
         mRadioButtonList = new ArrayList<>();
         Fragment fragment;
         RadioButton radioButton;
-        for (int i = 0; i < mSortTitles.length; i++) {
+        for (int i = 0; i < mCategoryList.size(); i++) {
             fragment = new SortItemFragment();
+            // 为每个fragment分发数据
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("Category", mCategoryList.get(i));
+            fragment.setArguments(bundle);
+            // 初始化radioButton
             radioButton = new RadioButton(getContext());
 
             // 设置radioButton的属性
             radioButton.setId(i);
             radioButton.setTextSize(13f);
-            radioButton.setText(mSortTitles[i]);
+            radioButton.setText(mCategoryList.get(i).getCategoryName());
             radioButton.setTextColor(mColorNormal);
             // 隐藏radioButton前面的小圆圈
             radioButton.setButtonDrawable(android.R.color.transparent);
@@ -143,11 +149,23 @@ public class SortFragment extends Fragment {
             layoutParams.setMargins(0, mInitMargin, 0, 0);
             radioButton.setLayoutParams(layoutParams);
 
-            mFragmentList.add(fragment);
+            fragmentList.add(fragment);
             mRadioButtonList.add(radioButton);
 
             // 将radioButton添加到容器中
             mSortTitle.addView(radioButton, i);
+
+            // 初始化选中项
+            mRadioButtonList.get(0).setChecked(true);
+            mRadioButtonList.get(0).setTextColor(mColorSelected);
+
+            // 设置适配器
+            mSortPagerContainer.setAdapter(new FragmentAdapter(getActivity().getSupportFragmentManager(), fragmentList));
+            mSortPagerContainer.setOffscreenPageLimit(fragmentList.size() - 1);
+
+            // 设置滑动模式
+            mSortPagerContainer.setPageTransformer(false, new VerticalSlideViewPager.VerticalTransformer());
+            mSortPagerContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
         }
     }
 
