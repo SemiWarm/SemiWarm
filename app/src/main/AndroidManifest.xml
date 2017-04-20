@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="app.semiwarm.cn">
 
-    <!--允许联网 -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 允许联网 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
 
         <!-- 欢迎页面 -->
         <activity
@@ -34,26 +33,22 @@
             android:theme="@style/SplashTheme">
         </activity>
         <!-- 主界面 -->
-        <activity
-            android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity">
         </activity>
         <!-- 广告描述信息界面 -->
-        <activity
-            android:name=".activity.SplashDetailActivity">
+        <activity android:name=".activity.SplashDetailActivity">
         </activity>
         <!-- 搜索界面 -->
-        <activity
-            android:name=".activity.SearchActivity">
+        <activity android:name=".activity.SearchActivity">
         </activity>
         <!-- 登录界面 -->
-        <activity
-            android:name=".activity.SignInActivity">
+        <activity android:name=".activity.SignInActivity">
         </activity>
         <!-- 注册界面 -->
-        <activity
-            android:name=".activity.SignUpActivity">
+        <activity android:name=".activity.SignUpActivity">
         </activity>
-
+        <activity android:name=".activity.SortItemDeatilActivity">
+        </activity>
     </application>
 
 </manifest>

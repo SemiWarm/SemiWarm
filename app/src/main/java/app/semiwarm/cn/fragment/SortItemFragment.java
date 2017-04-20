@@ -1,8 +1,10 @@
 package app.semiwarm.cn.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import app.semiwarm.cn.R;
+import app.semiwarm.cn.activity.SortItemDeatilActivity;
 import app.semiwarm.cn.entity.Category;
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -38,6 +41,7 @@ public class SortItemFragment extends Fragment {
     int mColor;
 
     private int mContainerWidth;
+    private Category mCategory;
 
     public SortItemFragment() {
         // Required empty public constructor
@@ -49,13 +53,15 @@ public class SortItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sort_item, container, false);
         ButterKnife.bind(this, view);
 
+        mCategory = (Category) getArguments().getSerializable("Category");
+
         mContainerLinearLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 mContainerLinearLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 mContainerWidth = mContainerLinearLayout.getMeasuredWidth();
-                Category category = (Category) getArguments().getSerializable("Category");
-                if (category != null) {
+                if (mCategory != null) {
+                    Log.i("mCategory", mCategory.toString());
                     // 根据容器宽度计算图片宽度
                     int categoryBannerImageWidth = mContainerWidth * 14 / 15;
                     // 根据图片宽度计算图片高度
@@ -65,7 +71,7 @@ public class SortItemFragment extends Fragment {
                     // 加载图片
                     Glide
                             .with(getContext())
-                            .load(category.getCategoryBanner())
+                            .load(mCategory.getCategoryBanner())
                             .bitmapTransform(new RoundedCornersTransformation(getContext(), 10, 0))
                             .into(categoryBannerImageView);
                     // 设置布局
@@ -84,9 +90,9 @@ public class SortItemFragment extends Fragment {
 
                     // 初始化描述TextView
                     TextView categoryDescTextView = new TextView(getContext());
-                    categoryDescTextView.setText(category.getCategoryDesc());
+                    categoryDescTextView.setText(mCategory.getCategoryDesc());
                     categoryDescTextView.setTextColor(mColor);
-                    categoryDescTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                    categoryDescTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
 
                     // 设置TextView布局参数
                     RelativeLayout.LayoutParams categoryDescLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -95,10 +101,22 @@ public class SortItemFragment extends Fragment {
                     // 添加到布局
                     mBannerContainerRelativeLayout.addView(categoryDescTextView);
                     // 加载标题
-                    mCategoryTitleTextView.setText(category.getCategoryTitle());
+                    mCategoryTitleTextView.setText(mCategory.getCategoryTitle());
                 }
             }
         });
+
+        // 类目Banner区域点击事件
+        mBannerContainerRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SortItemDeatilActivity.class);
+                intent.putExtra("Category", mCategory);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+
         return view;
     }
 }
