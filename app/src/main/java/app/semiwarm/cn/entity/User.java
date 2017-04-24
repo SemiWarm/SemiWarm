@@ -11,8 +11,8 @@ import java.util.Date;
 public class User implements Serializable {
     private Long userId; // 用户ID
     private String userName; // 用户名称
-    private String userPhone; // 用户手机号
-    private String password; // 密码
+    private String userAccount; // 用户账号
+    private String loginPassword; // 密码
     private Boolean status; // 账号是否可用->默认可用
     private Date createAt;// 用户创建时间
 
@@ -32,20 +32,20 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    public String getUserPhone() {
-        return userPhone;
+    public String getUserAccount() {
+        return userAccount;
     }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
     }
 
-    public String getPassword() {
-        return password;
+    public String getLoginPassword() {
+        return loginPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setLoginPassword(String loginPassword) {
+        this.loginPassword = loginPassword;
     }
 
     public Boolean getStatus() {
@@ -69,8 +69,8 @@ public class User implements Serializable {
         return "User{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                ", password='" + password + '\'' +
+                ", userAccount='" + userAccount + '\'' +
+                ", loginPassword='" + loginPassword + '\'' +
                 ", status=" + status +
                 ", createAt=" + createAt +
                 '}';

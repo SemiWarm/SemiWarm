@@ -3,6 +3,7 @@ package app.semiwarm.cn.service.observable;
 import java.util.List;
 
 import app.semiwarm.cn.entity.Category;
+import app.semiwarm.cn.http.BaseResponse;
 import app.semiwarm.cn.http.ObservableLoader;
 import app.semiwarm.cn.http.RetrofitServiceManager;
 import app.semiwarm.cn.service.CategoryService;
@@ -21,7 +22,7 @@ public class CategoryServiceObservable extends ObservableLoader {
         mCategoryService = RetrofitServiceManager.getInstance().create(CategoryService.class);
     }
 
-    public Observable<List<Category>> getAllCategories() {
+    public Observable<BaseResponse<List<Category>>> getAllCategories() {
         return observable(mCategoryService.getAllCategories());
     }
 }

@@ -42,7 +42,6 @@ public class SignUpVerifyCodeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_up_verify_code, container, false);
-
         ButterKnife.bind(this, view);
 
         mCodeEditText.addTextChangedListener(new TextWatcher() {

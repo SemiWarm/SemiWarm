@@ -1,8 +1,10 @@
 package app.semiwarm.cn.fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,15 +23,12 @@ import org.greenrobot.eventbus.Subscribe;
 import app.semiwarm.cn.R;
 import app.semiwarm.cn.activity.SignInActivity;
 import app.semiwarm.cn.entity.User;
-import app.semiwarm.cn.service.UserService;
+import app.semiwarm.cn.http.BaseResponse;
+import app.semiwarm.cn.service.observable.UserServiceObservable;
 import app.semiwarm.cn.utils.EditTextUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Subscriber;
 
 /**
  * 注册主界面
@@ -63,36 +62,32 @@ public class SignUpFragment extends Fragment {
     Button mSignUpButton;
 
     private String phone;
+    private ProgressDialog dialog;
 
     public SignUpFragment() {
-        // Required empty public constructor
         // 使用EventBus进行注册需要接受消息的Fragment
         EventBus.getDefault().register(this);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         // 一定要绑定ButterKnife否则会出现空指针异常
         ButterKnife.bind(this, view);
-
+        // 用户名输入框获取焦点
         mAccountNameEditText.setFocusable(true);
-
+        // 添加一键清除监听
         EditTextUtils.addShowPasswordListener(mPasswordEditText, mPasswordEyeImageView);
         EditTextUtils.addShowPasswordListener(mConfirmPasswordEditText, mConfirmPasswordEyeImageView);
-
+        // 添加用户名输入框监听，防止用户没有输入用户名
         mAccountNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -102,11 +97,12 @@ public class SignUpFragment extends Fragment {
                 } else {
                     mAccountNameClearImageView.setVisibility(View.INVISIBLE);
                     mAccountNameAvailableImageView.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getActivity(), "小主你忘了给自己起名字啦！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "小主您忘了给自己起名字啦!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        // 一键清除按钮监听
         mAccountNameClearImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,14 +114,14 @@ public class SignUpFragment extends Fragment {
         mAccountNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // 当输入框失去聚焦时说明用户正在输入其他用户框，此时应该检查名称合法性
+                // 当输入框失去焦点时说明用户正在输入其它信息，此时应该检查名称合法性
                 if (!hasFocus) {
                     if (mAccountNameEditText.getText().length() > 0) {
                         isAccountNameAvailable();
                     } else {
                         mAccountNameAvailableImageView.setImageResource(R.drawable.ic_error);
                         mAccountNameAvailableImageView.setVisibility(View.INVISIBLE);
-                        Toast.makeText(getActivity(), "小主你忘了给自己起名字啦！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "小主您忘了给自己起名字啦!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     // 只要输入框获得焦点就说明用户正在编辑输入框，此时应该隐藏提示图标
@@ -143,7 +139,7 @@ public class SignUpFragment extends Fragment {
                     if (mPasswordEditText.getText().length() < 6) {
                         mPasswordAvailableImageView.setImageResource(R.drawable.ic_error);
                         mPasswordAvailableImageView.setVisibility(View.VISIBLE);
-                        Toast.makeText(getActivity(), "密码不能少于6位啦！常识哦！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "密码不能少于6位啦!常识哦!", Toast.LENGTH_SHORT).show();
                     } else {
                         mPasswordAvailableImageView.setImageResource(R.drawable.ic_correct);
                         mPasswordAvailableImageView.setVisibility(View.VISIBLE);
@@ -160,12 +156,10 @@ public class SignUpFragment extends Fragment {
         mPasswordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -181,12 +175,10 @@ public class SignUpFragment extends Fragment {
         mConfirmPasswordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -213,67 +205,112 @@ public class SignUpFragment extends Fragment {
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 设置注册按钮不可用
+                mSignUpButton.setEnabled(false);
+                // 开始加载对话框
+                dialog = new ProgressDialog(getContext());
+                dialog.setCancelable(false); // 不可以被取消
+                dialog.setTitle("注册中...");
+                dialog.setMessage("正在为小主玩命抢注ing...");
+                dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                dialog.show();
+                // 在此检测用户是否输入用户名，防止一些很皮的用户暴力测试
                 if (mAccountNameEditText.getText().length() > 0) {
-                    // 请求注册接口
-                    // 进行网络请求
-                    // 初始化Retrofit
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .baseUrl("http://semiwarm.cn/api/v1.0/") // 这里的baseUrl中的参数必须以"/"结尾
-                            .build();
-                    // 初始化UserService
-                    final UserService userService = retrofit.create(UserService.class);
-                    final Call<User> user = userService.getUserByName(mAccountNameEditText.getText().toString());
-                    user.enqueue(new Callback<User>() {
-                        @Override
-                        public void onResponse(Call<User> call, Response<User> response) {
-                            if (null != response.body()) {
-                                Toast.makeText(getActivity(), "小主想到的名字已经被别人抢占啦！", Toast.LENGTH_SHORT).show();
-                                mAccountNameAvailableImageView.setImageResource(R.drawable.ic_error);
-                                mAccountNameAvailableImageView.setVisibility(View.VISIBLE);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<User> call, Throwable t) {
-                            // 初始化用户
-                            User registerUser = new User();
-                            // 设置用户手机号
-                            registerUser.setUserPhone(phone);
-                            // 设置用户名
-                            registerUser.setUserName(mAccountNameEditText.getText().toString());
-                            // 在进行一次判断
-                            if (mPasswordEditText.getText().length() >= 6 && mConfirmPasswordEditText.getText().length() >= 6) {
-                                if (mConfirmPasswordEditText.getText().toString().equals(mPasswordEditText.getText().toString())) {
-                                    // 设置用户密码
-                                    registerUser.setPassword(mConfirmPasswordEditText.getText().toString());
-                                    // 调用注册接口
-                                    Call<String> signUpResult = userService.signUp(registerUser);
-                                    signUpResult.enqueue(new Callback<String>() {
-                                        @Override
-                                        public void onResponse(Call<String> call, Response<String> response) {
-                                            // 成功后在后台打印响应结果
-                                            Log.i("signUpResult:", response.body());
-                                            // 启动登录界面
-                                            startActivity(new Intent(getActivity(), SignInActivity.class));
-                                            getActivity().finish();
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<String> call, Throwable t) {
-                                            t.printStackTrace();
-                                        }
-                                    });
-                                } else {
-                                    Toast.makeText(getActivity(), "两个密码怎么不一样呢？", Toast.LENGTH_SHORT).show();
+                    // 初始化请求服务
+                    final UserServiceObservable userService = new UserServiceObservable();
+                    userService.getUserByName(mAccountNameEditText.getText().toString())
+                            .subscribe(new Subscriber<BaseResponse<User>>() {
+                                @Override
+                                public void onCompleted() {
                                 }
-                            } else {
-                                Toast.makeText(getActivity(), "密码不能少于6位啦！常识哦！", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(getActivity(), "小主你忘了给自己起名字啦！", Toast.LENGTH_SHORT).show();
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    Log.i("onError:", e.getCause().toString());
+                                }
+
+                                @Override
+                                public void onNext(BaseResponse<User> userBaseResponse) {
+                                    User user = userBaseResponse.getData();
+                                    Log.i("success:", "" + userBaseResponse.getSuccess());
+                                    Log.i("message:", userBaseResponse.getMessage());
+                                    if (null != user) {
+                                        Log.i("user:", user.toString());
+                                        dialog.dismiss();
+                                        Toast.makeText(getActivity(), "小主想到的名字已经被别人抢先啦!", Toast.LENGTH_SHORT).show();
+                                        mAccountNameAvailableImageView.setImageResource(R.drawable.ic_error);
+                                        mAccountNameAvailableImageView.setVisibility(View.VISIBLE);
+                                        mSignUpButton.setEnabled(true);
+                                    } else {
+                                        // 初始化用户
+                                        User registerUser = new User();
+                                        // 设置用户手机号
+                                        registerUser.setUserAccount(phone);
+                                        // 设置用户名
+                                        registerUser.setUserName(mAccountNameEditText.getText().toString());
+                                        // 再进行一次判断
+                                        if (mPasswordEditText.getText().length() >= 6 && mConfirmPasswordEditText.getText().length() >= 6) {
+                                            if (mConfirmPasswordEditText.getText().toString().equals(mPasswordEditText.getText().toString())) {
+                                                // 设置用户密码
+                                                registerUser.setLoginPassword(mConfirmPasswordEditText.getText().toString());
+                                                // 调用注册接口
+                                                userService.signUp(registerUser)
+                                                        .subscribe(new Subscriber<BaseResponse<User>>() {
+                                                            @Override
+                                                            public void onCompleted() {
+
+                                                            }
+
+                                                            @Override
+                                                            public void onError(Throwable e) {
+                                                                Log.i("onError", e.getCause().toString());
+                                                            }
+
+                                                            @Override
+                                                            public void onNext(BaseResponse<User> userBaseResponse) {
+                                                                if (userBaseResponse.getSuccess() == 1) {
+                                                                    dialog.setTitle(userBaseResponse.getMessage());
+                                                                    dialog.setMessage("正在玩命加载登录界面ing...");
+                                                                    new CountDownTimer(2000, 1000) {
+
+                                                                        @Override
+                                                                        public void onTick(long millisUntilFinished) {
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onFinish() {
+                                                                            dialog.dismiss();
+                                                                            startActivity(new Intent(getActivity(), SignInActivity.class));
+                                                                            getActivity().finish();
+                                                                        }
+                                                                    }.start();
+                                                                } else {
+                                                                    dialog.setTitle(userBaseResponse.getMessage());
+                                                                    dialog.setMessage(userBaseResponse.getMessage());
+                                                                    dialog.dismiss();
+                                                                    mSignUpButton.setEnabled(true);
+                                                                }
+                                                            }
+                                                        });
+                                            } else {
+                                                dialog.dismiss();
+                                                mSignUpButton.setEnabled(true);
+                                                Toast.makeText(getActivity(), "两次密码怎么不一致呢?", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else {
+                                            dialog.dismiss();
+                                            mSignUpButton.setEnabled(true);
+                                            Toast.makeText(getActivity(), "密码不能少于6位啦!常识哦!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            });
+                } else
+
+                {
+                    dialog.dismiss();
+                    mSignUpButton.setEnabled(true);
+                    Toast.makeText(getActivity(), "小主您忘了给自己起名字啦!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -295,29 +332,34 @@ public class SignUpFragment extends Fragment {
 
     public void isAccountNameAvailable() {
         // 进行网络请求
-        // 初始化Retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://semiwarm.cn/api/v1.0/") // 这里的baseUrl中的参数必须以"/"结尾
-                .build();
-        // 初始化UserService
-        UserService userService = retrofit.create(UserService.class);
-        Call<User> user = userService.getUserByName(mAccountNameEditText.getText().toString());
-        user.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (null != response.body()) {
-                    Toast.makeText(getActivity(), "小主想到的名字已经被别人抢占啦！", Toast.LENGTH_SHORT).show();
-                    mAccountNameAvailableImageView.setImageResource(R.drawable.ic_error);
-                    mAccountNameAvailableImageView.setVisibility(View.VISIBLE);
-                }
-            }
+        UserServiceObservable userService = new UserServiceObservable();
+        userService.getUserByName(mAccountNameEditText.getText().toString())
+                .subscribe(new Subscriber<BaseResponse<User>>() {
+                    @Override
+                    public void onCompleted() {
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                mAccountNameAvailableImageView.setImageResource(R.drawable.ic_correct);
-                mAccountNameAvailableImageView.setVisibility(View.VISIBLE);
-            }
-        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("onError:", e.getCause().toString());
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse<User> userBaseResponse) {
+                        User user = userBaseResponse.getData();
+                        Log.i("success:", "" + userBaseResponse.getSuccess());
+                        Log.i("message:", userBaseResponse.getMessage());
+                        if (null != user) {
+                            Log.i("user:", user.toString());
+                            Toast.makeText(getActivity(), "小主想到的名字已经被别人抢先啦!", Toast.LENGTH_SHORT).show();
+                            mAccountNameAvailableImageView.setImageResource(R.drawable.ic_error);
+                            mAccountNameAvailableImageView.setVisibility(View.VISIBLE);
+                        } else {
+                            mAccountNameAvailableImageView.setImageResource(R.drawable.ic_correct);
+                            mAccountNameAvailableImageView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
     }
 }

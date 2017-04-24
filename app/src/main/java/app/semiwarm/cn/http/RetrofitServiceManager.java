@@ -1,5 +1,8 @@
 package app.semiwarm.cn.http;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -30,11 +33,15 @@ public class RetrofitServiceManager {
         builder.connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS); //连接超时时间
         builder.writeTimeout(DEFAULT_WRITE_TIME_OUT, TimeUnit.SECONDS); //写操作超时时间
         builder.readTimeout(DEFAULT_READ_TIME_OUT, TimeUnit.SECONDS); //读操作超时时间
+        // 必须要加上时间转换否则无法将json转换成object
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .create();
         // 创建Retrofit
         mRetrofit = new Retrofit.Builder()
                 .client(builder.build())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(ApiConfig.BASE_URL)
                 .build();
     }

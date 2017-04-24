@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -18,6 +18,7 @@ import java.util.List;
 import app.semiwarm.cn.R;
 import app.semiwarm.cn.adapter.SortPageFragmentAdapter;
 import app.semiwarm.cn.entity.Category;
+import app.semiwarm.cn.http.BaseResponse;
 import app.semiwarm.cn.service.observable.CategoryServiceObservable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,21 +52,25 @@ public class HomeFragment extends Fragment {
         // 请求所有类目信息
         CategoryServiceObservable categoryService = new CategoryServiceObservable();
         categoryService.getAllCategories()
-                .subscribe(new Subscriber<List<Category>>() {
+                .subscribe(new Subscriber<BaseResponse<List<Category>>>() {
                     @Override
                     public void onCompleted() {
-                        initTabsAndFragments();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i("onError:", e.getMessage());
+
                     }
 
                     @Override
-                    public void onNext(List<Category> categories) {
-                        mCategoryList = new ArrayList<>(categories);
-                        EventBus.getDefault().post(categories);
+                    public void onNext(BaseResponse<List<Category>> listBaseResponse) {
+                        if (listBaseResponse.getSuccess() == 1) {
+                            mCategoryList = new ArrayList<>(listBaseResponse.getData());
+                            initTabsAndFragments();
+                            EventBus.getDefault().post(mCategoryList);
+                        } else {
+                            Toast.makeText(getActivity(), "没有可用的分类数据!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

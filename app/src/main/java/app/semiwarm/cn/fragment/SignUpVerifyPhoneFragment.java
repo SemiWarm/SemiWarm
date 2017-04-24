@@ -18,8 +18,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,17 +26,14 @@ import java.util.HashMap;
 import app.semiwarm.cn.R;
 import app.semiwarm.cn.entity.MessageResponse;
 import app.semiwarm.cn.entity.User;
-import app.semiwarm.cn.service.UserService;
+import app.semiwarm.cn.http.BaseResponse;
+import app.semiwarm.cn.service.observable.UserServiceObservable;
 import app.semiwarm.cn.utils.EditTextUtils;
 import app.semiwarm.cn.utils.MessageUtils;
 import app.semiwarm.cn.utils.StringUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Subscriber;
 
 /**
  * 登录验证
@@ -93,7 +88,7 @@ public class SignUpVerifyPhoneFragment extends Fragment {
                 if (0 == messageResponse.getCode()) {
                     message.what = SUCCESS;
                     // 使用Bundle存储请求结果
-                    bundle.putSerializable("messageResponse",messageResponse);
+                    bundle.putSerializable("messageResponse", messageResponse);
                     // 为message设置携带信息
                     message.setData(bundle);
                     // 发送message
@@ -125,17 +120,17 @@ public class SignUpVerifyPhoneFragment extends Fragment {
                 case SUCCESS:
                     MessageResponse messageResponse = (MessageResponse) bundle.getSerializable("messageResponse");
                     if (null != messageResponse) {
-                        Log.i("messageResponse",messageResponse.toString());
-                        HashMap<String,String> hashMap = new HashMap<>();
-                        hashMap.put("code",code);
-                        hashMap.put("phone",phone);
+                        Log.i("messageResponse", messageResponse.toString());
+                        HashMap<String, String> hashMap = new HashMap<>();
+                        hashMap.put("code", code);
+                        hashMap.put("phone", phone);
 
                         Fragment signUpVerifyCodeFragment = new SignUpVerifyCodeFragment();
                         EventBus.getDefault().post(hashMap);
                         getActivity()
                                 .getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fl_sign_up,signUpVerifyCodeFragment)
+                                .replace(R.id.fl_sign_up, signUpVerifyCodeFragment)
                                 .commit();
 
                     }
@@ -199,45 +194,44 @@ public class SignUpVerifyPhoneFragment extends Fragment {
                 // 点击按钮开始加载对话框
                 dialog = new ProgressDialog(getContext());
                 dialog.setCancelable(false); // 不可以被取消
-                dialog.setMessage("正在发送验证码...");
+                dialog.setTitle("发送验证码");
+                dialog.setMessage("正在为小主发送验证码...");
                 dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 // 设置获取验证码按钮不可用
                 mGetCodeButton.setEnabled(false);
                 // 显示加载对话框
                 dialog.show();
-                // 必须要加上时间转换否则无法将json转换成object
-                Gson gson = new GsonBuilder()
-                        .setDateFormat("yyyy-MM-dd HH:mm:ss")
-                        .create();
-                // 初始化Retrofit
-                Retrofit retrofit = new Retrofit.Builder()
-                        .addConverterFactory(GsonConverterFactory.create(gson))
-                        .baseUrl("http://semiwarm.cn/api/v1.0/") // 这里的baseUrl中的参数必须以"/"结尾
-                        .build();
                 // 初始化UserService
-                UserService userService = retrofit.create(UserService.class);
-                Call<User> user = userService.getUserByPhone(mPhoneEditText.getText().toString());
-                user.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        if (null != response.body()) {
-                            // 关闭加载对话框
-                            dialog.dismiss();
-                            // 提示用户错误信息
-                            Toast.makeText(getActivity(), "该手机号已被注册", Toast.LENGTH_SHORT).show();
-                            // 设置获取验证码按钮可用
-                            mGetCodeButton.setEnabled(true);
-                        }
-                    }
+                UserServiceObservable userService = new UserServiceObservable();
+                userService.getUserByAccount(mPhoneEditText.getText().toString())
+                        .subscribe(new Subscriber<BaseResponse<User>>() {
+                            @Override
+                            public void onCompleted() {
 
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        // 显示加载对话框
-                        dialog.show();
-                        // 开启网络请求线程
-                        new Thread(mRunnable).start();
-                    }
-                });
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(BaseResponse<User> userBaseResponse) {
+                                if (userBaseResponse.getSuccess() == 1) {
+                                    // 关闭加载对话框
+                                    dialog.dismiss();
+                                    // 提示用户错误信息
+                                    Toast.makeText(getActivity(), "小主您的手机号已经被注册啦!", Toast.LENGTH_SHORT).show();
+                                    // 设置获取验证码按钮可用
+                                    mGetCodeButton.setEnabled(true);
+                                } else {
+                                    // 显示加载对话框
+                                    dialog.show();
+                                    // 开启网络请求线程
+                                    new Thread(mRunnable).start();
+                                }
+                            }
+                        });
             }
         });
 

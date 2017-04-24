@@ -8,11 +8,12 @@ import java.io.Serializable;
  */
 public class Category implements Serializable {
 
-    private Integer categoryId; // 分类id
-    private String categoryName; // 分类名称
-    private String categoryBanner; // 分类Banner
-    private String categoryTitle; // 分类标题
-    private String categoryDesc; // 分类描述
+    private Integer categoryId; // 类目id
+    private String categoryName; // 类目名称
+    private String categoryBanner; // 类目Banner
+    private String categoryTitle; // 类目标题
+    private String categoryDesc; // 类目描述
+    private Boolean status; // 类目是否可用
 
     public Integer getCategoryId() {
         return categoryId;
@@ -54,6 +55,14 @@ public class Category implements Serializable {
         this.categoryDesc = categoryDesc;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
@@ -62,6 +71,7 @@ public class Category implements Serializable {
                 ", categoryBanner='" + categoryBanner + '\'' +
                 ", categoryTitle='" + categoryTitle + '\'' +
                 ", categoryDesc='" + categoryDesc + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

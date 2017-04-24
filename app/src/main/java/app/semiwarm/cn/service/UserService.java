@@ -1,13 +1,12 @@
 package app.semiwarm.cn.service;
 
-import java.util.List;
-
 import app.semiwarm.cn.entity.User;
-import retrofit2.Call;
+import app.semiwarm.cn.http.BaseResponse;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import rx.Observable;
 
 /**
  * 用户服务类接口
@@ -15,22 +14,15 @@ import retrofit2.http.Path;
  */
 
 public interface UserService {
-    /**
-     * 获取用户列表
-     *
-     * @return 所有用户信息
-     */
-    @GET("users")
-    Call<List<User>> getAllUsers();
 
     /**
-     * 根据手机号获取用户信息
+     * 根据账号获取用户信息
      *
-     * @param phone 手机号
+     * @param account 账号
      * @return 用户信息
      */
-    @GET("users/phone/{phone}")
-    Call<User> getUserByPhone(@Path("phone") String phone);
+    @GET("users/account/{account}")
+    Observable<BaseResponse<User>> getUserByAccount(@Path("account") String account);
 
     /**
      * 根据用户名获取用户信息
@@ -39,7 +31,7 @@ public interface UserService {
      * @return 用户信息
      */
     @GET("users/name/{name}")
-    Call<User> getUserByName(@Path("name") String name);
+    Observable<BaseResponse<User>> getUserByName(@Path("name") String name);
 
     /**
      * 注册用户
@@ -48,5 +40,5 @@ public interface UserService {
      * @return 受影响行数
      */
     @POST("users")
-    Call<String> signUp(@Body User user);
+    Observable<BaseResponse<User>> signUp(@Body User user);
 }
