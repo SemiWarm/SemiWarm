@@ -117,7 +117,13 @@ public class SortFragment extends Fragment {
             @Override
             public void onGlobalLayout() {
                 mIndicator.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                mIndicatorDistance = mSortTitle.getChildAt(1).getTop() - mSortTitle.getChildAt(0).getTop();
+
+                if (null == mSortTitle.getChildAt(1)) {
+                    mIndicatorDistance = 65;
+                } else {
+                    mIndicatorDistance = mSortTitle.getChildAt(1).getTop() - mSortTitle.getChildAt(0).getTop();
+                }
+
             }
         });
     }
