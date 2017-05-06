@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
@@ -125,7 +124,7 @@ public class SortItemFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SortItemDeatilActivity.class);
                 intent.putExtra("Category", mCategory);
-                startActivityForResult(intent, 1);
+                startActivity(intent);
             }
         });
         // *******************我是分割线---子类目部分开始*******************
@@ -173,7 +172,10 @@ public class SortItemFragment extends Fragment {
                             subCategoryAdapter.setItemClickListener(new SubCategoryItemClickListener() {
                                 @Override
                                 public void onItemClick(View view, int postion) {
-                                    Toast.makeText(getContext(), "点击位置:" + postion, Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getContext(), SortItemDeatilActivity.class);
+                                    intent.putExtra("Category", mCategory);
+                                    intent.putExtra("index", postion);
+                                    startActivity(intent);
                                 }
                             });
                         }

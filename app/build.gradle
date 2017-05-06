@@ -25,6 +25,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    compile('com.alibaba.android:vlayout:1.0.4@aar') {
+        transitive = true
+    }
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -42,9 +45,6 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.alibaba:fastjson:1.1.56.android'
-    compile ('com.alibaba.android:vlayout:1.0.4@aar') {
-        transitive = true
-    }
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
