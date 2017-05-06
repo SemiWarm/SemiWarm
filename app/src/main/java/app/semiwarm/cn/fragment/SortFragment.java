@@ -117,7 +117,7 @@ public class SortFragment extends Fragment {
             @Override
             public void onGlobalLayout() {
                 mIndicator.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
+                // 解决因为少于一个类目时出现的空指针异常问题
                 if (null == mSortTitle.getChildAt(1)) {
                     mIndicatorDistance = 65;
                 } else {
