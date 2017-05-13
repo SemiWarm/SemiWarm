@@ -49,6 +49,10 @@
         </activity>
         <activity android:name=".activity.SortItemDeatilActivity">
         </activity>
+        <activity android:name=".activity.UserCenterActivity">
+        </activity>
+        <activity android:name=".activity.UserBaseInfoActivity">
+        </activity>
     </application>
 
 </manifest>

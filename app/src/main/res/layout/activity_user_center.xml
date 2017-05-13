@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_user_center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="app.semiwarm.cn.activity.UserCenterActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_title"
+            style="@style/ToolBarTheme"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_left_arrow"/>
+
+                <TextView
+                    android:id="@+id/tv_tool_bar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/str_my_info"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bar"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_base_info"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:drawableEnd="@drawable/ic_right_arrow"
+            android:gravity="center_vertical"
+            android:paddingEnd="10dp"
+            android:paddingStart="20dp"
+            android:text="@string/str_user_base_info"
+            android:textColor="@color/grey_800"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/grey_300"/>
+
+        <TextView
+            android:id="@+id/tv_account_safe"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableEnd="@drawable/ic_right_arrow"
+            android:gravity="center_vertical"
+            android:paddingEnd="10dp"
+            android:paddingStart="20dp"
+            android:text="@string/str_account_safe"
+            android:textColor="@color/grey_800"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

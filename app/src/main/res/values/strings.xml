@@ -35,4 +35,17 @@
     <string name="service_desc_1">半暖自营品牌</string>
     <string name="text_view_all">查看全部</string>
     <string name="text_ads">广告</string>
+    <string name="str_my_collection">我的收藏</string>
+    <string name="str_address">收货地址</string>
+    <string name="str_my_info">个人中心</string>
+    <string name="str_comment">待评价</string>
+    <string name="str_deliveried">已发货</string>
+    <string name="str_waiting_delivery">待发货</string>
+    <string name="str_waiting_pay">待付款</string>
+    <string name="str_my_cart">购物车</string>
+    <string name="str_my_order">我的订单</string>
+    <string name="str_user_base_info">个人信息</string>
+    <string name="str_account_safe">账号安全</string>
+    <string name="str_save">保存</string>
+    <string name="star_click_update">点击修改头像</string>
 </resources>
