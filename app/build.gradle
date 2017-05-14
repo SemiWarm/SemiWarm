@@ -45,6 +45,8 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.alibaba:fastjson:1.1.56.android'
+    compile 'com.contrarywind:Android-PickerView:3.2.4'
+    compile 'com.lzy.widget:imagepicker:0.5.5'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }

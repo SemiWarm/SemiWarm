@@ -53,6 +53,10 @@
         </activity>
         <activity android:name=".activity.UserBaseInfoActivity">
         </activity>
+        <activity
+            android:name=".activity.ImagePickerActivity"
+            android:theme="@style/ImagePickerThemeFullScreen">
+        </activity>
     </application>
 
 </manifest>

@@ -48,4 +48,13 @@
     <string name="str_account_safe">账号安全</string>
     <string name="str_save">保存</string>
     <string name="star_click_update">点击修改头像</string>
+    <string name="str_select_date">点击选择日期</string>
+    <string name="str_user_birth">生日</string>
+    <string name="str_user_email">邮箱</string>
+    <string name="str_user_sex">性别</string>
+    <string name="str_user_name">昵称</string>
+    <string name="str_user_account">账号</string>
+    <string name="str_user_id">用户ID</string>
+    <string name="str_male">男</string>
+    <string name="str_female">女</string>
 </resources>
