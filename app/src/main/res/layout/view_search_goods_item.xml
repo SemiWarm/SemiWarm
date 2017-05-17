@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="8dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_goods_banner"
+            android:layout_width="165dp"
+            android:layout_height="165dp"/>
+
+        <TextView
+            android:id="@+id/tv_goods_desc"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/deepOrange_50"
+            android:gravity="center"
+            android:textColor="@color/deepOrange_500"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_goods_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_goods_tags"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:paddingEnd="4dp"
+                android:paddingStart="4dp"
+                android:paddingTop="2dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tv_goods_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/grey_800"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_goods_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/red_800"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

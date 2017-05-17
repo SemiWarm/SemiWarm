@@ -20,6 +20,7 @@ import app.semiwarm.cn.entity.SubCategory;
 import app.semiwarm.cn.fragment.SubCategoryItemClickListener;
 
 /**
+ * SubCategoryAdapter
  * Created by alibct on 2017/5/6.
  */
 

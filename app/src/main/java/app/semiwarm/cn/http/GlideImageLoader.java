@@ -20,7 +20,7 @@ public class GlideImageLoader implements ImageLoader {
         Glide
                 .with(activity)
                 .load(path)
-                .placeholder(R.drawable.ic_default_picture)
+                .placeholder(R.drawable.ic_select_pic)
                 .into(imageView);
     }
 

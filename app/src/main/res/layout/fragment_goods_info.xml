@@ -1,0 +1,83 @@
+<com.flipboard.bottomsheet.BottomSheetLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomsheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="app.semiwarm.cn.fragment.GoodsInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_goods_banner"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="轻摔牛皮男士休闲鞋"
+            android:textColor="@color/grey_800"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="轻摔头层皮，软弹乳胶垫"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="¥319.00"
+            android:textColor="@color/red_800"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_goods_provider"
+            android:padding="5dp"
+            android:text="CK供应商 >"
+            android:textColor="@color/deepOrange_500"/>
+
+        <LinearLayout
+            android:id="@+id/ll_select_goods_spec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey_300"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:drawableEnd="@drawable/ic_right_arrow"
+                android:gravity="center_vertical"
+                android:text="规格数量选择"
+                android:textColor="@color/grey_800"
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey_300"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.flipboard.bottomsheet.BottomSheetLayout>

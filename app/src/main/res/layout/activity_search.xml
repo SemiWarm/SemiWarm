@@ -26,11 +26,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_search_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize">
-
-    </LinearLayout>
+        android:layout_marginTop="?attr/actionBarSize"/>
 
 </android.support.design.widget.CoordinatorLayout>

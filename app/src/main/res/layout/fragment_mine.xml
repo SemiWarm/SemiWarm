@@ -15,14 +15,11 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ci_user_avatar"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/avatar"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="2dp"/>
+            android:src="@drawable/avatar"/>
 
         <TextView
             android:id="@+id/tv_user_level"

@@ -10,6 +10,7 @@ import app.semiwarm.cn.service.SubCategoryService;
 import rx.Observable;
 
 /**
+ * SubCategoryServiceObservable
  * Created by alibct on 2017/5/6.
  */
 
