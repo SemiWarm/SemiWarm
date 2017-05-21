@@ -1,5 +1,6 @@
 package app.semiwarm.cn.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -129,6 +130,9 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int postion) {
                 Toast.makeText(SearchActivity.this, "商品id" + goodsList.get(postion).getGoodsId(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SearchActivity.this,GoodsActivity.class);
+                intent.putExtra("goodsId",goodsList.get(postion).getGoodsId());
+                startActivity(intent);
             }
         });
     }

@@ -57,4 +57,8 @@
     <string name="str_user_id">用户ID</string>
     <string name="str_male">男</string>
     <string name="str_female">女</string>
+    <string name="str_add_to_cart">加入购物车</string>
+    <string name="str_buy_now">立即购买</string>
+    <string name="str_show_goods_detail">下拉查看商品详情</string>
+    <string name="str_select_spec">规格数量选择</string>
 </resources>
