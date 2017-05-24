@@ -50,6 +50,8 @@ public class GoodsInfoFragment extends BaseFragment implements View.OnClickListe
 
     private Goods mGoods;
 
+    private GoodsSpecParamFragment mGoodsSpecParamFragment;
+
     public GoodsInfoFragment() {
         // Required empty public constructor
     }
@@ -79,6 +81,11 @@ public class GoodsInfoFragment extends BaseFragment implements View.OnClickListe
             mGoodsDescTextView.setText(mGoods.getGoodsDesc());
             mGoodsPriceTextView.setText("¥ " + mGoods.getGoodsPrice());
             mSelectSpecLinearLayout.setOnClickListener(this);
+            // 干点其他事情
+            mGoodsSpecParamFragment = new GoodsSpecParamFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("Goods", mGoods);
+            mGoodsSpecParamFragment.setArguments(bundle);
         }
         return view;
     }
@@ -87,8 +94,7 @@ public class GoodsInfoFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_select_goods_spec:
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.view_goods_spec, mBottomSheetLayout, false);
-                mBottomSheetLayout.showWithSheetView(view);
+                mGoodsSpecParamFragment.show(getFragmentManager(), R.id.bottomsheet);
                 break;
         }
     }

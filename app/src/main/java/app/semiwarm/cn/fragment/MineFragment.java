@@ -10,10 +10,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import app.semiwarm.cn.R;
+import app.semiwarm.cn.activity.SignInActivity;
 import app.semiwarm.cn.activity.UserCenterActivity;
+import app.semiwarm.cn.entity.User;
+import app.semiwarm.cn.http.BaseResponse;
+import app.semiwarm.cn.service.observable.UserServiceObservable;
+import app.semiwarm.cn.utils.SharedPreferencesUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import rx.Subscriber;
 
 /**
  * 我的
@@ -55,6 +61,35 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
         ButterKnife.bind(this, view);
+        // 从sp中获取登录的用户的userAccount
+        String userAccount = SharedPreferencesUtils.getUserAccount(getContext());
+        // 根据获取的用户id获取用户信息
+        if ("".equals(userAccount)) {
+            startActivity(new Intent(getContext(), SignInActivity.class));
+        } else {
+            // 发出请求
+            UserServiceObservable userService = new UserServiceObservable();
+            userService.getUserByAccount(userAccount).subscribe(new Subscriber<BaseResponse<User>>() {
+                @Override
+                public void onCompleted() {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onNext(BaseResponse<User> userBaseResponse) {
+                    if (userBaseResponse.getSuccess() == 1) {
+                        // 这里需要在此请求用户详细信息
+                    }
+                }
+            });
+        }
+
+
         mUserAvatarCircleImageView.setOnClickListener(this);
         mMyCenterTextView.setOnClickListener(this);
         return view;

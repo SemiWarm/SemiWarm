@@ -36,4 +36,14 @@ public class SharedPreferencesUtils {
             return false;
         }
     }
+
+    public static void setUserAccount(Context context, String userAccount) {
+        SharedPreferences spUserAccount = context.getSharedPreferences("UserAccount", Context.MODE_PRIVATE);
+        spUserAccount.edit().putString("UserAccount", userAccount).apply();
+    }
+
+    public static String getUserAccount(Context context) {
+        SharedPreferences spUserAccount = context.getSharedPreferences("UserAccount", Context.MODE_PRIVATE);
+        return spUserAccount.getString("UserAccount", "");
+    }
 }

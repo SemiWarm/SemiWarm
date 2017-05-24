@@ -10,11 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import app.semiwarm.cn.R;
+import app.semiwarm.cn.entity.User;
+import app.semiwarm.cn.http.BaseResponse;
+import app.semiwarm.cn.service.observable.UserServiceObservable;
 import app.semiwarm.cn.utils.EditTextUtils;
+import app.semiwarm.cn.utils.SharedPreferencesUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscriber;
 
 public class SignInActivity extends BaseActivity {
 
@@ -90,8 +96,35 @@ public class SignInActivity extends BaseActivity {
         mBtnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                finish();
+
+                if (mAccountEditText.getText().toString().trim().length() > 0) {
+                    // 开始请求
+                    UserServiceObservable userService = new UserServiceObservable();
+                    userService.getUserByAccount(mAccountEditText.getText().toString().trim()).subscribe(new Subscriber<BaseResponse<User>>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseResponse<User> userBaseResponse) {
+                            if (userBaseResponse.getSuccess() == 1) {
+                                SharedPreferencesUtils.setUserAccount(getApplicationContext(), userBaseResponse.getData().getUserAccount());
+                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(SignInActivity.this, "不存在该用户!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(SignInActivity.this, "请输入手机号!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
