@@ -30,6 +30,7 @@ import app.semiwarm.cn.entity.Goods;
 import app.semiwarm.cn.entity.GoodsSpecParam;
 import app.semiwarm.cn.http.BaseResponse;
 import app.semiwarm.cn.service.observable.GoodsServiceObservable;
+import app.semiwarm.cn.utils.DrawableUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Subscriber;
@@ -38,7 +39,6 @@ import rx.Subscriber;
  * A simple {@link Fragment} subclass.
  */
 public class GoodsSpecParamFragment extends BottomSheetFragment {
-
 
     @BindView(R.id.ll_root)
     LinearLayout mRootLinearLayout;
@@ -116,14 +116,14 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
                         LinearLayout specLayout = new LinearLayout(getContext());
                         specLayout.setOrientation(LinearLayout.VERTICAL);
                         LinearLayout.LayoutParams specLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        specLayoutParams.setMargins(10, 10, 10, 10);
+                        specLayoutParams.setMargins(30, 10, 10, 10);
                         specLayout.setLayoutParams(specLayoutParams);
                         // 初始化规格名称
                         TextView specName = new TextView(getContext());
                         String name = (String) nameIterator.next();
                         specName.setText(name);
                         specName.setTextColor(Color.parseColor("#424242"));
-                        specName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                        specName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                         LinearLayout.LayoutParams specNameLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         specName.setLayoutParams(specNameLayoutParams);
                         specLayout.addView(specName);
@@ -141,13 +141,16 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
                             i++;
                             RadioButton specValue = new RadioButton(getContext());
                             // 设置radioButton的属性
-                            specValue.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                            specValue.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
                             specValue.setText((String) valueIterator.next());
                             specValue.setTextColor(Color.parseColor("#424242"));
+                            specValue.setPadding(10, 10, 10, 10);
+                            specValue.setGravity(Gravity.CENTER);
+                            specValue.setBackground(DrawableUtils.getSelector(DrawableUtils.getDrawable(Color.parseColor("#424242"), 5), DrawableUtils.getDrawable(Color.parseColor("#C62828"), 5)));
                             // 隐藏radioButton前面的小圆圈
                             specValue.setButtonDrawable(android.R.color.transparent);
                             // 设置radioButton布局
-                            RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(150,80);
                             layoutParams.gravity = Gravity.CENTER;
                             if (i > 1) {
                                 layoutParams.setMargins(15, 0, 0, 0);
