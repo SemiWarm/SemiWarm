@@ -34,13 +34,22 @@
                 android:textColor="@color/red_800"
                 android:textSize="16sp"/>
 
-            <TextView
-                android:id="@+id/tv_seleted_params"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll_selected_params"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:textColor="@color/grey_800"
-                android:textSize="16sp"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_seleted_params"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_selected"
+                    android:textColor="@color/grey_800"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

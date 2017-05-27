@@ -3,6 +3,7 @@ package app.semiwarm.cn.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.TypedValue;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.flipboard.bottomsheet.commons.BottomSheetFragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -46,8 +48,10 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
     ImageView mGoodsBannerImageView;
     @BindView(R.id.tv_goods_price)
     TextView mGoodsPriceTextView;
-    @BindView(R.id.tv_seleted_params)
-    TextView mSelectedParamsTextView;
+    @BindView(R.id.ll_selected_params)
+    LinearLayout mSelectedParamsLinearLayout;
+
+    private List<TextView> mTextViewList;
 
     public GoodsSpecParamFragment() {
         // Required empty public constructor
@@ -71,7 +75,6 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
             Glide.with(getContext()).load(banners[0]).into(mGoodsBannerImageView);
         }
         mGoodsPriceTextView.setText("¥ " + goods.getGoodsPrice());
-        mSelectedParamsTextView.setText("请选择规格参数");
         // 开始处理规格参数数据
         // 根据商品id请求商品所有规格参数
         GoodsServiceObservable goodsService = new GoodsServiceObservable();
@@ -90,9 +93,22 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
             public void onNext(BaseResponse<List<GoodsSpecParam>> listBaseResponse) {
                 if (listBaseResponse.getSuccess() == 1) {
                     // 第一步获取规格名称
-                    String[] specNames = listBaseResponse.getData().get(0).getSpecParamName().split(",");
+                    final String[] specNames = listBaseResponse.getData().get(0).getSpecParamName().split(",");
+                    // 根据specNames的个数创建TextView
+                    mTextViewList = new ArrayList<>();
+                    for (int i = 0; i < specNames.length; i++) {
+                        TextView textView = new TextView(getContext());
+                        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                        LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        if (i > 0) {
+                            textViewLayoutParams.setMarginStart(10);
+                        }
+                        textView.setLayoutParams(textViewLayoutParams);
+                        mSelectedParamsLinearLayout.addView(textView);
+                        mTextViewList.add(textView);
+                    }
                     // 第二步创建HashMap用于存储format之后的数据
-                    HashMap<String, HashSet<String>> specNameAndValues = new HashMap<>();
+                    final HashMap<String, HashSet<String>> specNameAndValues = new HashMap<>();
                     // 第三步根据规格名称创建规格参数集
                     for (int i = 0; i < specNames.length; i++) {
                         // 创建规格参数集
@@ -119,7 +135,7 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
                         specLayoutParams.setMargins(30, 10, 10, 10);
                         specLayout.setLayoutParams(specLayoutParams);
                         // 初始化规格名称
-                        TextView specName = new TextView(getContext());
+                        final TextView specName = new TextView(getContext());
                         String name = (String) nameIterator.next();
                         specName.setText(name);
                         specName.setTextColor(Color.parseColor("#424242"));
@@ -150,7 +166,7 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
                             // 隐藏radioButton前面的小圆圈
                             specValue.setButtonDrawable(android.R.color.transparent);
                             // 设置radioButton布局
-                            RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(150,80);
+                            RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(150, 80);
                             layoutParams.gravity = Gravity.CENTER;
                             if (i > 1) {
                                 layoutParams.setMargins(15, 0, 0, 0);
@@ -158,6 +174,20 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
                             specValue.setLayoutParams(layoutParams);
                             specValueGroup.addView(specValue);
                         }
+                        specValueGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                                Log.i("CheckedId", "" + checkedId);
+                                RadioButton checkedButton = (RadioButton) group.findViewById(checkedId);
+                                Log.i("CheckedButton", checkedButton.getText().toString());
+                                // 第i组的参数放在第i个TextView中
+                                for (int i1 = 0; i1 < specNames.length; i1++) {
+                                    if (specNameAndValues.get(specNames[i1]).contains(checkedButton.getText().toString())) {
+                                        mTextViewList.get(i1).setText(checkedButton.getText().toString());
+                                    }
+                                }
+                            }
+                        });
                         specLayout.addView(specValueGroup);
                         mRootLinearLayout.addView(specLayout);
                     }
