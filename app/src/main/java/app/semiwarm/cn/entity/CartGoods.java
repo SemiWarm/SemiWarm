@@ -10,7 +10,7 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 @Entity
 public class CartGoods {
-    @Id
+    @Id(autoincrement = true)
     private Long id; // 主键
     private Long goodsId; // 商品id
     private String goodsBanner; // 图片
@@ -21,7 +21,7 @@ public class CartGoods {
 
     @Generated(hash = 1719107769)
     public CartGoods(Long id, Long goodsId, String goodsBanner, String goodsTitle,
-            String goodsSpecParam, String goodsPrice, Integer goodsCount) {
+                     String goodsSpecParam, String goodsPrice, Integer goodsCount) {
         this.id = id;
         this.goodsId = goodsId;
         this.goodsBanner = goodsBanner;

@@ -21,7 +21,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "CartGoods-db");
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "CartGoods-db", null);
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
     }

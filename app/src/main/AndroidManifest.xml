@@ -56,6 +56,8 @@
         </activity>
         <activity android:name=".activity.GoodsActivity">
         </activity>
+        <activity android:name=".activity.CartActivity">
+        </activity>
     </application>
 
 </manifest>

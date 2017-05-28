@@ -11,6 +11,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -20,6 +22,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.flipboard.bottomsheet.commons.BottomSheetFragment;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 
 import app.semiwarm.cn.R;
+import app.semiwarm.cn.entity.CartGoods;
 import app.semiwarm.cn.entity.Goods;
 import app.semiwarm.cn.entity.GoodsSpecParam;
 import app.semiwarm.cn.http.BaseResponse;
@@ -40,7 +46,7 @@ import rx.Subscriber;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GoodsSpecParamFragment extends BottomSheetFragment {
+public class GoodsSpecParamFragment extends BottomSheetFragment implements View.OnClickListener {
 
     @BindView(R.id.ll_root)
     LinearLayout mRootLinearLayout;
@@ -51,10 +57,20 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
     @BindView(R.id.ll_selected_params)
     LinearLayout mSelectedParamsLinearLayout;
 
+    @BindView(R.id.btn_minus)
+    Button mMinusCountButton;
+    @BindView(R.id.et_goods_count)
+    EditText mGoodsCountEditText;
+    @BindView(R.id.btn_plus)
+    Button mPlusCountButton;
+
     private List<TextView> mTextViewList;
 
+    private Goods mGoods;
+    private String[] mBanners;
+
     public GoodsSpecParamFragment() {
-        // Required empty public constructor
+        EventBus.getDefault().register(this);
     }
 
 
@@ -62,17 +78,19 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goods_spec_param, container, false);
         ButterKnife.bind(this, view);
-        Goods goods = (Goods) getArguments().getSerializable("Goods");
-        if (null != goods) {
-            initView(goods);
+        mMinusCountButton.setOnClickListener(this);
+        mPlusCountButton.setOnClickListener(this);
+        mGoods = (Goods) getArguments().getSerializable("Goods");
+        if (null != mGoods) {
+            initView(mGoods);
         }
         return view;
     }
 
     public void initView(Goods goods) {
         if (null != goods) {
-            String[] banners = goods.getGoodsBanners().split(";");
-            Glide.with(getContext()).load(banners[0]).into(mGoodsBannerImageView);
+            mBanners = goods.getGoodsBanners().split(";");
+            Glide.with(getContext()).load(mBanners[0]).into(mGoodsBannerImageView);
         }
         mGoodsPriceTextView.setText("¥ " + goods.getGoodsPrice());
         // 开始处理规格参数数据
@@ -196,4 +214,40 @@ public class GoodsSpecParamFragment extends BottomSheetFragment {
         });
     }
 
+    @Subscribe
+    public void onEvent(Integer code) {
+        if (code == 1000) {
+            // 接收到获取商品参数的请求，开始整理商品参数参数
+            // 整理完成后开始向Activity发送数据
+            CartGoods cartGoods = new CartGoods();
+            cartGoods.setGoodsId(mGoods.getGoodsId());
+            cartGoods.setGoodsBanner(mBanners[0]);
+            cartGoods.setGoodsTitle(mGoods.getGoodsTitle());
+            String goodsSpecParam = "";
+            for (TextView textView : mTextViewList) {
+                goodsSpecParam += textView.getText().toString() + " ";
+            }
+            cartGoods.setGoodsSpecParam(goodsSpecParam);
+            cartGoods.setGoodsCount(Integer.valueOf(mGoodsCountEditText.getText().toString()));
+            cartGoods.setGoodsPrice("¥" + mGoods.getGoodsPrice());
+            EventBus.getDefault().post(cartGoods);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_minus:
+                if (Integer.valueOf(mGoodsCountEditText.getText().toString()) > 1) {
+                    mGoodsCountEditText.setText(String.valueOf(Integer.valueOf(mGoodsCountEditText.getText().toString()) - 1));
+                } else {
+                    mGoodsCountEditText.setText(String.valueOf(1));
+                }
+                break;
+            case R.id.btn_plus:
+                // 这里本来需要获取该类别的商品个数的，但是为了简化写法直接加一，默认商品个数无限大
+                mGoodsCountEditText.setText(String.valueOf(Integer.valueOf(mGoodsCountEditText.getText().toString()) + 1));
+                break;
+        }
+    }
 }

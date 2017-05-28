@@ -1,7 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -52,6 +51,54 @@
             </LinearLayout>
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_minus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_minus"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/bg_goods_count"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_goods_count"
+                android:layout_width="40dp"
+                android:layout_height="24dp"
+                android:background="@null"
+                android:enabled="false"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="@string/str_default_count"
+                android:textColor="@color/grey_800"
+                android:textCursorDrawable="@drawable/bg_cursor_red"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_plus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_plus"/>
 
     </LinearLayout>
 

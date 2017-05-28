@@ -62,4 +62,7 @@
     <string name="str_show_goods_detail">下拉查看商品详情</string>
     <string name="str_select_spec">规格数量选择</string>
     <string name="str_selected">已选择:</string>
+    <string name="str_default_count">1</string>
+    <string name="str_cart">购物车</string>
+    <string name="str_edit">编辑</string>
 </resources>
