@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.greendao.query.Query;
 
 import java.util.List;
 
@@ -46,6 +45,7 @@ public class GoodsActivity extends AppCompatActivity implements View.OnClickList
 
     private GoodsInfoFragment mGoodsInfoFragment;
     private GoodsDetailFragment mGoodsDetailFragment;
+    private Long mGoodsId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +62,11 @@ public class GoodsActivity extends AppCompatActivity implements View.OnClickList
         mAddToCartTextView.setOnClickListener(this);
         mCartImageView.setOnClickListener(this);
         // 首先需要获取传过来的商品id
-        Long goodsId = getIntent().getLongExtra("goodsId", -1);
+        mGoodsId = getIntent().getLongExtra("goodsId", -1);
         // 请求商品数据
-        if (goodsId != -1) {
+        if (mGoodsId != -1) {
             GoodsServiceObservable goodsService = new GoodsServiceObservable();
-            goodsService.getGoodsById(goodsId).subscribe(new Subscriber<BaseResponse<Goods>>() {
+            goodsService.getGoodsById(mGoodsId).subscribe(new Subscriber<BaseResponse<Goods>>() {
                 @Override
                 public void onCompleted() {
 
@@ -116,7 +116,7 @@ public class GoodsActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.tv_add_cart:
                 // 发出获取商品参数请求
-                EventBus.getDefault().post(1000);
+                EventBus.getDefault().post(mGoodsId);
                 break;
             case R.id.iv_cart:
                 startActivity(new Intent(this, CartActivity.class));
@@ -127,17 +127,16 @@ public class GoodsActivity extends AppCompatActivity implements View.OnClickList
     @Subscribe
     public void onEvent(CartGoods cartGoods) {
         // 接收商品数据
-        if (null != cartGoods) {
+        if (mGoodsId.equals(cartGoods.getGoodsId())) {
             Log.i("CartGoods:", cartGoods.toString());
             // 接收到数据之后就可以添加到本地数据库了
             CartGoodsDao cartGoodsDao = MainApplication.getInstance().getDaoSession().getCartGoodsDao();
             // 在加购之前需要判断是否是同一种商品，如果是只需要更新数据库中该商品的数量即可
-            Query<CartGoods> query = cartGoodsDao
+            List<CartGoods> cartGoodsList = cartGoodsDao
                     .queryBuilder()
                     .where(CartGoodsDao.Properties.GoodsId.eq(cartGoods.getGoodsId()),
                             CartGoodsDao.Properties.GoodsSpecParam.eq(cartGoods.getGoodsSpecParam()))
-                    .build();
-            List<CartGoods> cartGoodsList = query.list();
+                    .list();
             Log.i("cartGoodsList:", cartGoodsList.toString());
             if (cartGoodsList.size() > 0) {
                 cartGoodsList.get(0).setGoodsCount(cartGoodsList.get(0).getGoodsCount() + cartGoods.getGoodsCount());

@@ -95,24 +95,7 @@ public class SortPageFragment extends Fragment {
                 if (listBaseResponse.getSuccess() == 1) {
                     Log.i("subCategoryList:", listBaseResponse.getData().toString());
                     // 根据每一个子类目信息先布局子类目名称和描述
-                    for (SubCategory subCategory : listBaseResponse.getData()) {
-                        // 初始化标题和描述
-                        TextView subCategoryTitle = new TextView(getContext());
-                        subCategoryTitle.setText(subCategory.getSubCategoryTitle());
-                        subCategoryTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-                        subCategoryTitle.setTextColor(Color.parseColor("#424242"));
-                        LinearLayout.LayoutParams titleLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        titleLayoutParams.gravity = Gravity.CENTER;
-                        titleLayoutParams.setMargins(0, 20, 0, 0);
-                        subCategoryTitle.setLayoutParams(titleLayoutParams);
-                        mSortPageContainerLinearLayout.addView(subCategoryTitle);
-                        TextView subCategoryDesc = new TextView(getContext());
-                        subCategoryDesc.setText(subCategory.getSubCategoryDesc());
-                        subCategoryDesc.setTextColor(Color.parseColor("#BDBDBD"));
-                        LinearLayout.LayoutParams descLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        descLayoutParams.gravity = Gravity.CENTER;
-                        subCategoryDesc.setLayoutParams(descLayoutParams);
-                        mSortPageContainerLinearLayout.addView(subCategoryDesc);
+                    for (final SubCategory subCategory : listBaseResponse.getData()) {
                         // 根据子类目id获取所有子类目商品
                         GoodsServiceObservable goodsService = new GoodsServiceObservable();
                         goodsService.getAllGoodsBySubCategoryId(subCategory.getSubCategoryId()).subscribe(new Subscriber<BaseResponse<List<Goods>>>() {
@@ -129,14 +112,17 @@ public class SortPageFragment extends Fragment {
                             @Override
                             public void onNext(BaseResponse<List<Goods>> listBaseResponse) {
                                 if (listBaseResponse.getSuccess() == 1) {
-                                    // 初始化所有商品
-                                    RecyclerView goodsRecyclerView = new RecyclerView(getContext());
-                                    // 初始化RecyclerView
-                                    initRecyclerView(goodsRecyclerView, listBaseResponse.getData());
-                                    // 初始化布局
-                                    LinearLayout.LayoutParams goodsLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                    goodsRecyclerView.setLayoutParams(goodsLayoutParams);
-                                    mSortPageContainerLinearLayout.addView(goodsRecyclerView);
+                                    if (listBaseResponse.getData().size() > 0) {
+                                        initSubCategoryTitleAndDesc(subCategory);
+                                        // 初始化所有商品
+                                        RecyclerView goodsRecyclerView = new RecyclerView(getContext());
+                                        // 初始化RecyclerView
+                                        initRecyclerView(goodsRecyclerView, listBaseResponse.getData());
+                                        // 初始化布局
+                                        LinearLayout.LayoutParams goodsLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        goodsRecyclerView.setLayoutParams(goodsLayoutParams);
+                                        mSortPageContainerLinearLayout.addView(goodsRecyclerView);
+                                    }
                                 }
                             }
                         });
@@ -179,5 +165,25 @@ public class SortPageFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+
+    public void initSubCategoryTitleAndDesc(SubCategory subCategory){
+        // 初始化标题和描述
+        TextView subCategoryTitle = new TextView(getContext());
+        subCategoryTitle.setText(subCategory.getSubCategoryTitle());
+        subCategoryTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        subCategoryTitle.setTextColor(Color.parseColor("#424242"));
+        LinearLayout.LayoutParams titleLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        titleLayoutParams.gravity = Gravity.CENTER;
+        titleLayoutParams.setMargins(0, 20, 0, 0);
+        subCategoryTitle.setLayoutParams(titleLayoutParams);
+        mSortPageContainerLinearLayout.addView(subCategoryTitle);
+        TextView subCategoryDesc = new TextView(getContext());
+        subCategoryDesc.setText(subCategory.getSubCategoryDesc());
+        subCategoryDesc.setTextColor(Color.parseColor("#BDBDBD"));
+        LinearLayout.LayoutParams descLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        descLayoutParams.gravity = Gravity.CENTER;
+        subCategoryDesc.setLayoutParams(descLayoutParams);
+        mSortPageContainerLinearLayout.addView(subCategoryDesc);
     }
 }

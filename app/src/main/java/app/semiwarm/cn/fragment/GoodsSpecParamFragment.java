@@ -68,6 +68,7 @@ public class GoodsSpecParamFragment extends BottomSheetFragment implements View.
 
     private Goods mGoods;
     private String[] mBanners;
+    private CartGoods mCartGoods;
 
     public GoodsSpecParamFragment() {
         EventBus.getDefault().register(this);
@@ -215,23 +216,23 @@ public class GoodsSpecParamFragment extends BottomSheetFragment implements View.
     }
 
     @Subscribe
-    public void onEvent(Integer code) {
-        if (code == 1000) {
+    public void onEvent(Long goodsId) {
+        if (goodsId.equals(mGoods.getGoodsId())) {
             // 接收到获取商品参数的请求，开始整理商品参数参数
             // 整理完成后开始向Activity发送数据
-            CartGoods cartGoods = new CartGoods();
-            cartGoods.setGoodsId(mGoods.getGoodsId());
-            cartGoods.setGoodsBanner(mBanners[0]);
-            cartGoods.setGoodsTitle(mGoods.getGoodsTitle());
+            mCartGoods = new CartGoods();
+            mCartGoods.setGoodsId(mGoods.getGoodsId());
+            mCartGoods.setGoodsBanner(mBanners[0]);
+            mCartGoods.setGoodsTitle(mGoods.getGoodsTitle());
             String goodsSpecParam = "";
             for (TextView textView : mTextViewList) {
                 goodsSpecParam += textView.getText().toString() + " ";
             }
-            cartGoods.setGoodsSpecParam(goodsSpecParam);
-            cartGoods.setGoodsCount(Integer.valueOf(mGoodsCountEditText.getText().toString()));
-            cartGoods.setGoodsPrice("¥" + mGoods.getGoodsPrice());
-            cartGoods.setIsChecked(true);
-            EventBus.getDefault().post(cartGoods);
+            mCartGoods.setGoodsSpecParam(goodsSpecParam);
+            mCartGoods.setGoodsCount(Integer.valueOf(mGoodsCountEditText.getText().toString()));
+            mCartGoods.setGoodsPrice("¥" + mGoods.getGoodsPrice());
+            mCartGoods.setIsChecked(true);
+            EventBus.getDefault().post(mCartGoods);
         }
     }
 
