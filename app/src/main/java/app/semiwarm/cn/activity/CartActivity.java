@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -102,6 +103,11 @@ public class CartActivity extends AppCompatActivity {
         cartGoodsAdapter.setCartGoodsItemClickListener(new CartGoodsItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
+                CheckBox checkBox = (CheckBox) view.findViewById(R.id.rb_is_selected);
+                // 取反
+                cartGoodsList.get(postion).setIsChecked(!cartGoodsList.get(postion).getChecked());
+                // 设值
+                checkBox.setChecked(cartGoodsList.get(postion).getChecked());
             }
         });
     }

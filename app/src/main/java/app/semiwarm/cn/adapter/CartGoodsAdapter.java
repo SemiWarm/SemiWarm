@@ -54,7 +54,7 @@ public class CartGoodsAdapter extends DelegateAdapter.Adapter<CartGoodsAdapter.C
 
     @Override
     public void onBindViewHolder(CartGoodsViewHolder holder, int position) {
-        holder.getCheckBox().setChecked(true);
+        holder.getCheckBox().setChecked(mCartGoodsList.get(position).getChecked());
         Glide
                 .with(mContext)
                 .load(mCartGoodsList.get(position).getGoodsBanner())

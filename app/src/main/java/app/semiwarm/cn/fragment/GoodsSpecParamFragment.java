@@ -230,6 +230,7 @@ public class GoodsSpecParamFragment extends BottomSheetFragment implements View.
             cartGoods.setGoodsSpecParam(goodsSpecParam);
             cartGoods.setGoodsCount(Integer.valueOf(mGoodsCountEditText.getText().toString()));
             cartGoods.setGoodsPrice("¥" + mGoods.getGoodsPrice());
+            cartGoods.setIsChecked(true);
             EventBus.getDefault().post(cartGoods);
         }
     }

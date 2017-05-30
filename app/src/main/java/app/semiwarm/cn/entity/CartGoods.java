@@ -18,10 +18,12 @@ public class CartGoods {
     private String goodsSpecParam; // 规格参数
     private String goodsPrice; // 价格
     private Integer goodsCount; // 数量
+    private Boolean isChecked; // 是否被选中
 
-    @Generated(hash = 1719107769)
+    @Generated(hash = 1313091808)
     public CartGoods(Long id, Long goodsId, String goodsBanner, String goodsTitle,
-                     String goodsSpecParam, String goodsPrice, Integer goodsCount) {
+            String goodsSpecParam, String goodsPrice, Integer goodsCount,
+            Boolean isChecked) {
         this.id = id;
         this.goodsId = goodsId;
         this.goodsBanner = goodsBanner;
@@ -29,6 +31,7 @@ public class CartGoods {
         this.goodsSpecParam = goodsSpecParam;
         this.goodsPrice = goodsPrice;
         this.goodsCount = goodsCount;
+        this.isChecked = isChecked;
     }
 
     @Generated(hash = 1612149435)
@@ -91,6 +94,14 @@ public class CartGoods {
         this.goodsCount = goodsCount;
     }
 
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
+    }
+
     @Override
     public String toString() {
         return "CartGoods{" +
@@ -101,6 +112,15 @@ public class CartGoods {
                 ", goodsSpecParam='" + goodsSpecParam + '\'' +
                 ", goodsPrice='" + goodsPrice + '\'' +
                 ", goodsCount=" + goodsCount +
+                ", isChecked=" + isChecked +
                 '}';
+    }
+
+    public Boolean getIsChecked() {
+        return this.isChecked;
+    }
+
+    public void setIsChecked(Boolean isChecked) {
+        this.isChecked = isChecked;
     }
 }
